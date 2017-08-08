@@ -5,6 +5,8 @@ import (
 	"kubekit/utils"
 	"os"
 
+	"github.com/fatih/color"
+
 	cli "gopkg.in/urfave/cli.v1"
 )
 
@@ -31,9 +33,16 @@ func main() {
 			Aliases: []string{"i"},
 			Usage:   "Initialize current server with Docker engine & Kubernetes master.",
 			Action: func(c *cli.Context) error {
-				if utils.SetupDocker() {
-					utils.SetupMaster()
+				if !utils.SetupDocker() {
+					color.Red("%sProgram terminated...")
+					os.Exit(1)
 				}
+
+				if utils.SetupMaster() {
+					//1. Get K8S token, save it to .k8s.token file
+					//2. Launch toolkit server
+				}
+
 				return nil
 			},
 		},
