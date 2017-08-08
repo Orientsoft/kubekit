@@ -13,7 +13,7 @@ import (
 
 func RunSetup(script string, ch chan int, args ...string) {
 	//cmd := exec.Command("bash", "-s", script)
-	cmd := exec.Command("script", args...)
+	cmd := exec.Command(script, args...)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		log.Fatal(err)
@@ -53,7 +53,7 @@ func saveLog(stdout io.ReadCloser) {
 		n, err := stdout.Read(buf)
 
 		if err != nil {
-			fmt.Println("End of output...")
+			log.Println("End of output...")
 			break
 		}
 
@@ -62,16 +62,30 @@ func saveLog(stdout io.ReadCloser) {
 	}
 }
 
-func SetupDocker() error {
+func SetupDocker() bool {
+	color.Blue("Start to install docker engine...\r\n\r\n")
 	ch := make(chan int)
 
 	go RunSetup("./docker.sh", ch)
 	if <-ch == 1 {
-		color.Red("%sFailed to install docker engine...", CrossSymbol)
-		os.Exit(1)
+		color.Red("%sFailed to install docker engine...\r\n\r\n", CrossSymbol)
+		return false
 	}
 
-	color.Green("%sDocker engine installed...", CheckSymbol)
+	color.Green("%sDocker engine installed...\r\n\r\n", CheckSymbol)
+	return true
+}
 
-	return nil
+func SetupMaster() bool {
+	color.Blue("Start to initialize Kubernetes master node...\r\n\r\n")
+	ch := make(chan int)
+
+	go RunSetup("./master.sh", ch, "master")
+	if <-ch == 1 {
+		color.Red("%sFailed to initialize Kubernetes master node...\r\n\r\n", CrossSymbol)
+		return false
+	}
+
+	color.Green("%sKubernetes master node initialized...\r\n\r\n", CheckSymbol)
+	return true
 }

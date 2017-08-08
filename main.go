@@ -31,7 +31,9 @@ func main() {
 			Aliases: []string{"i"},
 			Usage:   "Initialize current server with Docker engine & Kubernetes master.",
 			Action: func(c *cli.Context) error {
-				utils.SetupDocker()
+				if utils.SetupDocker() {
+					utils.SetupMaster()
+				}
 				return nil
 			},
 		},
