@@ -21,14 +21,13 @@ var (
 func StartServer() *http.Server {
 	srv = &http.Server{Addr: ":8000"}
 	http.Handle("/", http.FileServer(http.Dir("./package")))
+	color.Blue("%sHTTP file server listening at: 0.0.0.0:8000", CheckSymbol)
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
 			// cannot panic, because this probably is an intentional close
 			log.Printf("Httpserver: ListenAndServe() error: %s", err)
 		}
-
-		color.Blue("%sHTTP file server listening at: 0.0.0.0:8000", CheckSymbol)
 	}()
 
 	return srv
@@ -93,6 +92,10 @@ func outputProgress(buf []byte) {
 	}
 }
 
+func SaveMasterIP(masterIP string) {
+	ioutil.WriteFile("./.master-ip", []byte(masterIP), os.ModeAppend)
+}
+
 func saveLog(stdout io.ReadCloser, saveToken bool) {
 
 	fd, _ := os.OpenFile("install.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
@@ -128,11 +131,11 @@ func SetupDocker() bool {
 
 	go RunSetup("./package/docker.sh", ch)
 	if <-ch == 1 {
-		color.Red("\r\n\r\n%sFailed to install docker engine...\r\n\r\n", CrossSymbol)
+		color.Red("\r\n%sFailed to install docker engine...\r\n\r\n", CrossSymbol)
 		return false
 	}
 
-	color.Green("\r\n\r\n%sDocker engine installed...\r\n\r\n", CheckSymbol)
+	color.Green("\r\n%sDocker engine installed...\r\n\r\n", CheckSymbol)
 	return true
 }
 
@@ -142,10 +145,11 @@ func SetupMaster() bool {
 
 	go RunSetup("./package/master.sh", ch, "master")
 	if <-ch == 1 {
-		color.Red("\r\n\r\n%sFailed to initialize Kubernetes master node...\r\n\r\n", CrossSymbol)
+		color.Red("\r\n%sFailed to initialize Kubernetes master node...\r\n\r\n", CrossSymbol)
 		return false
 	}
 
-	color.Green("\r\n\r\n%sKubernetes master node initialized...\r\n\r\n", CheckSymbol)
+	color.Green("\r\n%sKubernetes master node initialized...\r\n\r\n", CheckSymbol)
+	color.Blue("Remember to reload shell with: source ~/.bash before using kubectl!\r\n")
 	return true
 }

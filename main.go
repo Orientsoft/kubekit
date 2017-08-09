@@ -34,6 +34,17 @@ func main() {
 			Aliases: []string{"i"},
 			Usage:   "Initialize current server with Docker engine & Kubernetes master.",
 			Action: func(c *cli.Context) error {
+
+				masterIP := c.Args().Get(0)
+
+				if masterIP == "" {
+					color.Red("Please run kubekit with master IP: kubekit i MASTER_IP")
+					os.Exit(0)
+				}
+
+				color.Blue("Initialization process started, with kubernetes master IP: %s\r\n", masterIP)
+				utils.SaveMasterIP(masterIP)
+
 				srv := utils.StartServer()
 				defer srv.Shutdown(context.Background())
 
