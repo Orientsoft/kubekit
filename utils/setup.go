@@ -1,7 +1,6 @@
 package utils
 
 import (
-	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -21,8 +20,6 @@ var (
 
 func StartServer() *http.Server {
 	srv = &http.Server{Addr: ":8000"}
-	color.Green("File server listening at: 0.0.0.0:8000")
-
 	http.Handle("/", http.FileServer(http.Dir("./package")))
 
 	go func() {
@@ -30,9 +27,10 @@ func StartServer() *http.Server {
 			// cannot panic, because this probably is an intentional close
 			log.Printf("Httpserver: ListenAndServe() error: %s", err)
 		}
+
+		color.Blue("%sHTTP file server listening at: 0.0.0.0:8000", CheckSymbol)
 	}()
 
-	// returning reference so caller can call Shutdown()
 	return srv
 }
 
@@ -72,22 +70,30 @@ func RunSetup(script string, ch chan int, args ...string) {
 
 func matchToken(buf []byte) {
 	if strings.Contains(string(buf), "kubeadm join --token") {
-
-		os.Remove("./k8s.token")
-
 		re := regexp.MustCompile("kubeadm join --token [0-9a-z.]*")
 		result := re.Find(buf)
 
 		//Get the token string
 		token := strings.Split(string(result), " ")[3]
+		ioutil.WriteFile("./.k8s-token", []byte(token), os.ModeAppend)
+		color.Green("%sMaster token %s saved into .k8s.token file.", CheckSymbol, token)
+	}
+}
 
-		ioutil.WriteFile("./k8s.token", []byte(token), os.ModeAppend)
-		color.Green("%sMaster token %s saved into .k8s.token file.", CheckSymbol)
+func outputProgress(buf []byte) {
+	re := regexp.MustCompile("KUBEKIT_OUTPUT .*.")
+	results := re.FindAll(buf, -1)
+
+	if results != nil {
+		for _, r := range results {
+			//Get the token string
+			output := strings.Replace(string(r), "KUBEKIT_OUTPUT ", "", 1)
+			color.Blue(output)
+		}
 	}
 }
 
 func saveLog(stdout io.ReadCloser, saveToken bool) {
-	buf := make([]byte, 1024)
 
 	fd, _ := os.OpenFile("install.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 
@@ -95,18 +101,23 @@ func saveLog(stdout io.ReadCloser, saveToken bool) {
 
 	for {
 		var n int
+		buf := make([]byte, 1024)
 		n, err := stdout.Read(buf)
 
 		if err != nil {
-			log.Println("End of output...")
+			//End of output
 			break
+		}
+
+		//Output the install progress
+		if strings.Contains(string(buf), "KUBEKIT_OUTPUT") {
+			outputProgress(buf)
 		}
 
 		if saveToken {
 			matchToken(buf)
 		}
 
-		fmt.Println(string(buf))
 		fd.WriteString(string(buf[:n]))
 	}
 }
@@ -115,7 +126,7 @@ func SetupDocker() bool {
 	color.Blue("Start to install docker engine...\r\n\r\n")
 	ch := make(chan int)
 
-	go RunSetup("./docker.sh", ch)
+	go RunSetup("./package/docker.sh", ch)
 	if <-ch == 1 {
 		color.Red("%sFailed to install docker engine...\r\n\r\n", CrossSymbol)
 		return false
@@ -129,7 +140,7 @@ func SetupMaster() bool {
 	color.Blue("Start to initialize Kubernetes master node...\r\n\r\n")
 	ch := make(chan int)
 
-	go RunSetup("./master.sh", ch, "master")
+	go RunSetup("./package/master.sh", ch, "master")
 	if <-ch == 1 {
 		color.Red("%sFailed to initialize Kubernetes master node...\r\n\r\n", CrossSymbol)
 		return false
