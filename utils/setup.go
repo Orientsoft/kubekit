@@ -128,11 +128,11 @@ func SetupDocker() bool {
 
 	go RunSetup("./package/docker.sh", ch)
 	if <-ch == 1 {
-		color.Red("%sFailed to install docker engine...\r\n\r\n", CrossSymbol)
+		color.Red("\r\n\r\n%sFailed to install docker engine...\r\n\r\n", CrossSymbol)
 		return false
 	}
 
-	color.Green("%sDocker engine installed...\r\n\r\n", CheckSymbol)
+	color.Green("\r\n\r\n%sDocker engine installed...\r\n\r\n", CheckSymbol)
 	return true
 }
 
@@ -142,10 +142,10 @@ func SetupMaster() bool {
 
 	go RunSetup("./package/master.sh", ch, "master")
 	if <-ch == 1 {
-		color.Red("%sFailed to initialize Kubernetes master node...\r\n\r\n", CrossSymbol)
+		color.Red("\r\n\r\n%sFailed to initialize Kubernetes master node...\r\n\r\n", CrossSymbol)
 		return false
 	}
 
-	color.Green("%sKubernetes master node initialized...\r\n\r\n", CheckSymbol)
+	color.Green("\r\n\r\n%sKubernetes master node initialized...\r\n\r\n", CheckSymbol)
 	return true
 }

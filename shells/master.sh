@@ -93,15 +93,19 @@ kube::config_firewalld()
 
 kube::master_up()
 {
+    echo "KUBEKIT_OUTPUT (1/6) Start to load images for Kubernetes master..."
     kube::load_images master
 
+    echo "KUBEKIT_OUTPUT (2/6) Start to install components for Kubernetes master..."
     kube::install_bin
 
+    echo "KUBEKIT_OUTPUT (3/6) Start to configure firewall..."
     kube::config_firewalld
 
     # kubeadm需要联网去找最新版本
     echo $HTTP_SERVER storage.googleapis.com >> /etc/hosts
 
+    echo "KUBEKIT_OUTPUT (4/6) Start to initialize Kubernetes master..."
     # 这里一定要带上--pod-network-cidr参数，不然后面的flannel网络会出问题
     export KUBE_ETCD_IMAGE=gcr.io/google_containers/etcd-amd64:3.0.17
     kubeadm init --kubernetes-version=v1.7.2 --pod-network-cidr=10.96.0.0/12
@@ -111,11 +115,13 @@ kube::master_up()
 
     export KUBECONFIG=/etc/kubernetes/admin.conf
 
+    echo "KUBEKIT_OUTPUT (5/6) Start to config Kubernetes network..."
     # install flannel network
     kubectl apply -f http://$HTTP_SERVER/network/kube-flannel-rbac.yml
     kubectl apply -f http://$HTTP_SERVER/network/kube-flannel.yml --namespace=kube-system
 
     #install dashboard
+    echo "KUBEKIT_OUTPUT (6/6) Start to install Kubernetes dashboard..."
     kubectl create -f http://$HTTP_SERVER/network/kubernetes-dashboard.yml
 
     # show pods

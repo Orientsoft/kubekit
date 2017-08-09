@@ -17,6 +17,7 @@ fi
 
 kube::install_docker()
 {
+    echo "KUBEKIT_OUTPUT (1/2) Start to install docker..."
     set +e
     which docker > /dev/null 2>&1
     i=$?
@@ -25,6 +26,7 @@ kube::install_docker()
         curl -L http://$HTTP_SERVER/rpms/docker.tar.gz > /tmp/docker.tar.gz 
         tar zxf /tmp/docker.tar.gz -C /tmp
         yum localinstall -y /tmp/docker/*.rpm
+        echo "KUBEKIT_OUTPUT (2/2) Start to config docker..."
         kube::config_docker
     fi
     systemctl enable docker.service && systemctl start docker.service
