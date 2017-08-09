@@ -21,7 +21,7 @@ var (
 func StartServer() *http.Server {
 	srv = &http.Server{Addr: ":8000"}
 	http.Handle("/", http.FileServer(http.Dir("./package")))
-	color.Green("\r\nHTTP file server listening at: 0.0.0.0:8000\r\n")
+	color.Green("%sHTTP file server listening at: 0.0.0.0:8000\r\n\r\n", CheckSymbol)
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
