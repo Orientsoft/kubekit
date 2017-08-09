@@ -21,7 +21,7 @@ var (
 func StartServer() *http.Server {
 	srv = &http.Server{Addr: ":8000"}
 	http.Handle("/", http.FileServer(http.Dir("./package")))
-	color.Green("%sHTTP file server listening at: 0.0.0.0:8000\r\n\r\n", CheckSymbol)
+	color.Green("%s\r\nHTTP file server listening at: 0.0.0.0:8000\r\n\r\n", CheckSymbol)
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
@@ -126,7 +126,7 @@ func saveLog(stdout io.ReadCloser, saveToken bool) {
 }
 
 func SetupDocker() bool {
-	color.Blue("Start to install docker engine...\r\n\r\n")
+	color.Blue("Start to install docker engine...\r\n")
 	ch := make(chan int)
 
 	go RunSetup("./package/docker.sh", ch)
