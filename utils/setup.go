@@ -21,7 +21,7 @@ var (
 func StartServer() *http.Server {
 	srv = &http.Server{Addr: ":8000"}
 	http.Handle("/", http.FileServer(http.Dir("./package")))
-	color.Blue("%sHTTP file server listening at: 0.0.0.0:8000", CheckSymbol)
+	color.Green("\r\nHTTP file server listening at: 0.0.0.0:8000\r\n")
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
@@ -150,6 +150,6 @@ func SetupMaster() bool {
 	}
 
 	color.Green("\r\n%sKubernetes master node initialized...\r\n\r\n", CheckSymbol)
-	color.Blue("Remember to reload shell with: source ~/.bash before using kubectl!\r\n")
+	color.Blue("Remember to reload shell with: source ~/.bashrc before using kubectl!\r\n")
 	return true
 }

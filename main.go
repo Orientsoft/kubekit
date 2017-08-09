@@ -45,7 +45,6 @@ func main() {
 
 				color.Blue("Initialization process started, with kubernetes master IP: %s\r\n", masterIP)
 				utils.SaveMasterIP(masterIP)
-				os.Exit(0)
 
 				srv := utils.StartServer()
 				defer srv.Shutdown(context.Background())
