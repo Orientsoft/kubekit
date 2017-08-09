@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"kubekit/utils"
 	"os"
@@ -33,6 +34,9 @@ func main() {
 			Aliases: []string{"i"},
 			Usage:   "Initialize current server with Docker engine & Kubernetes master.",
 			Action: func(c *cli.Context) error {
+				srv := utils.StartServer()
+				defer srv.Shutdown(context.Background())
+
 				if !utils.SetupDocker() {
 					color.Red("%sProgram terminated...")
 					os.Exit(1)

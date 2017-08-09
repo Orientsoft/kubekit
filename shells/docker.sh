@@ -7,8 +7,7 @@
 set -x
 set -e
 
-HTTP_SERVER=192.168.0.104:8000
-KUBE_REPO_PREFIX=gcr.io/google_containers
+HTTP_SERVER=127.0.0.1:8000
 
 root=$(id -u)
 if [ "$root" -ne 0 ] ;then
@@ -23,7 +22,7 @@ kube::install_docker()
     i=$?
     set -e
     if [ $i -ne 0 ]; then
-        cp ./rpms/docker.tar.gz /tmp/docker.tar.gz 
+        curl -L http://$HTTP_SERVER/rpms/docker.tar.gz > /tmp/docker.tar.gz 
         tar zxf /tmp/docker.tar.gz -C /tmp
         yum localinstall -y /tmp/docker/*.rpm
         kube::config_docker

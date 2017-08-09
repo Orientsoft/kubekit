@@ -5,6 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 	"log"
+	"net/http"
 	"os"
 	"os/exec"
 	"regexp"
@@ -13,6 +14,27 @@ import (
 
 	"github.com/fatih/color"
 )
+
+var (
+	srv *http.Server
+)
+
+func StartServer() *http.Server {
+	srv = &http.Server{Addr: ":8000"}
+	color.Green("File server listening at: 0.0.0.0:8000")
+
+	http.Handle("/", http.FileServer(http.Dir("./package")))
+
+	go func() {
+		if err := srv.ListenAndServe(); err != nil {
+			// cannot panic, because this probably is an intentional close
+			log.Printf("Httpserver: ListenAndServe() error: %s", err)
+		}
+	}()
+
+	// returning reference so caller can call Shutdown()
+	return srv
+}
 
 func RunSetup(script string, ch chan int, args ...string) {
 	//cmd := exec.Command("bash", "-s", script)
