@@ -50,7 +50,7 @@ func main() {
 				defer srv.Shutdown(context.Background())
 
 				if !utils.SetupDocker() {
-					color.Red("%sProgram terminated...")
+					color.Red("%sProgram terminated...", utils.CrossSymbol)
 					os.Exit(1)
 				}
 
