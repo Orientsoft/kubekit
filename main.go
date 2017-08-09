@@ -39,8 +39,7 @@ func main() {
 				}
 
 				if utils.SetupMaster() {
-					//1. Get K8S token, save it to .k8s.token file
-					//2. Launch toolkit server
+					//TODO: Launch toolkit server
 				}
 
 				return nil
