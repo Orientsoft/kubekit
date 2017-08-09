@@ -30,9 +30,10 @@ func main() {
 
 	app.Commands = []cli.Command{
 		{
-			Name:    "init",
-			Aliases: []string{"i"},
-			Usage:   "Initialize current server with Docker engine & Kubernetes master.",
+			Name:      "init",
+			Aliases:   []string{"i"},
+			Usage:     "Initialize current server with Docker engine & Kubernetes master.",
+			ArgsUsage: "[Kubernetes master IP]",
 			Action: func(c *cli.Context) error {
 
 				masterIP := c.Args().Get(0)
@@ -44,6 +45,7 @@ func main() {
 
 				color.Blue("Initialization process started, with kubernetes master IP: %s\r\n", masterIP)
 				utils.SaveMasterIP(masterIP)
+				os.Exit(0)
 
 				srv := utils.StartServer()
 				defer srv.Shutdown(context.Background())

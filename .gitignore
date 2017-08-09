@@ -1,3 +1,4 @@
 kubekit
 install.log
 package/*
+.master-ip
