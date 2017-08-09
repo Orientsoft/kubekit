@@ -81,7 +81,7 @@ func matchToken(buf []byte) {
 }
 
 func outputProgress(buf []byte) {
-	re := regexp.MustCompile("KUBEKIT_OUTPUT .*.")
+	re := regexp.MustCompile("KUBEKIT_OUTPUT.*.")
 	results := re.FindAll(buf, -1)
 
 	if results != nil {
