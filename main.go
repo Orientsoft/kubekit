@@ -55,7 +55,8 @@ func main() {
 				}
 
 				if utils.SetupMaster() {
-					//TODO: Launch toolkit server
+					// Launch toolkit server
+					utils.StartToolkitServer()
 				}
 
 				return nil

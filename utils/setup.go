@@ -3,6 +3,7 @@ package utils
 import (
 	"io"
 	"io/ioutil"
+	"kubekit/controllers"
 	"log"
 	"net/http"
 	"os"
@@ -12,11 +13,22 @@ import (
 	"syscall"
 
 	"github.com/fatih/color"
+	"github.com/gin-gonic/gin"
 )
 
 var (
 	srv *http.Server
 )
+
+func StartToolkitServer() {
+	r := gin.Default()
+
+	r.Static("/static", "./static")
+	r.LoadHTMLGlob("templates/*")
+
+	mainRouter := &controllers.MainRouter{}
+	mainRouter.Initialize(r)
+}
 
 func StartServer() *http.Server {
 	srv = &http.Server{Addr: ":8000"}
