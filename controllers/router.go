@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"kubekit/utils"
+
 	"github.com/fatih/color"
 	"github.com/gin-gonic/gin"
 )
@@ -9,11 +11,21 @@ type MainRouter struct {
 	router *gin.Engine
 }
 
+func StartToolkitServer() {
+	r := gin.Default()
+
+	r.Static("/static", "./static")
+	r.LoadHTMLGlob("templates/*")
+
+	mainRouter := &MainRouter{}
+	mainRouter.Initialize(r)
+}
+
 func (self *MainRouter) Initialize(r *gin.Engine) {
 
 	self.router = r
 	self.router.GET("/", self.IndexHandler)
 
-	color.Green("\r\n%sToolkit server is listening at: 0.0.0.0:9000")
+	color.Green("\r\n%sToolkit server is listening at: 0.0.0.0:9000", utils.CheckSymbol)
 	self.router.Run(":9000")
 }

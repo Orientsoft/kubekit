@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"kubekit/controllers"
 	"kubekit/utils"
 	"os"
 
@@ -56,7 +57,7 @@ func main() {
 
 				if utils.SetupMaster() {
 					// Launch toolkit server
-					utils.StartToolkitServer()
+					controllers.StartToolkitServer()
 				}
 
 				return nil
