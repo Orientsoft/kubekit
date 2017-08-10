@@ -134,6 +134,8 @@
 												<th>节点选择</th>
 												<th>节点名称</th>
 												<th>内网IP</th>
+												<th>SSH端口</th>
+												<th>登录密码</th>
 												<th>添加时间</th>
 												<th>节点状态</th>
 												<th data-sortable="false">备注</th>
@@ -142,12 +144,15 @@
 										</thead>
 
 										<tbody>
+											{{ range .Nodes }}
 											<tr>
 												<td><input type="checkbox" class="rows-check"></td>
-												<td><strong>Node1</strong></td>
-												<td>192.168.0.77</td>
-												<td>2017-08-08 22:10:04</td>
-												<td><span class="label label-success">Active</span></td>
+												<td><strong>{{ .Name }}</strong></td>
+												<td>{{ .IP }}</td>
+												<td>{{ .Port }}</td>
+												<td>{{ .Password }}</td>
+												<td>{{ .CreatedAt }}</td>
+												<td><span class="label label-success">{{ .Status }}</span></td>
 												<td></td>
 												<td>
 													<div class="btn-group btn-group-xs">
@@ -155,19 +160,7 @@
 													</div>
 												</td>
 											</tr>
-											<tr>
-												<td><input type="checkbox" disabled="disabled" class="rows-check"></td>
-												<td><strong>Node2</strong></td>
-												<td>192.168.0.104</td>
-												<td>2017-08-08 22:10:23</td>
-												<td><span class="label label-success">Active</span></td>
-												<td>N/A</td>
-												<td>
-													<div class="btn-group btn-group-xs">
-														<a data-toggle="tooltip" title="Off" class="btn btn-default"><i class="fa fa-trash"></i></a>
-													</div>
-												</td>
-											</tr>
+											{{ end }}
 										</tbody>
 									</table>
 								</div>

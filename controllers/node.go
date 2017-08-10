@@ -25,6 +25,7 @@ func (router *MainRouter) RemoveNodeHandler(c *gin.Context) {
 
 	for i := 0; i < len(router.nodeList.Nodes); i++ {
 		if router.nodeList.Nodes[i].ID == nid {
+			//Remove node from slice
 			router.nodeList.Nodes = router.nodeList.Remove(i)
 
 			//Serialize nodes
