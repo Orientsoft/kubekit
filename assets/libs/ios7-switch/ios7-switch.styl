@@ -1,0 +1,93 @@
+
+.ios-switch
+  height: 45px
+  width: 75px
+  position: relative
+  background-color: #E5E5E5
+  border-radius: 100px
+  backface-visibility: hidden
+
+  .background-fill
+    width: 100%
+    height: 100%
+    border-radius: 100px
+    position: absolute
+    left: 0
+    top: 0
+
+  .on-background
+    background-image: linear-gradient(#00e459, #00e158)
+    opacity: 0
+    z-index: 1
+    transition: .3s 0.2s
+
+  .state-background
+    border-radius: 100px
+    z-index: 2
+    background-image: linear-gradient(#ffffff, #FDFDFD)
+    transition: .4s
+    transform: scale(1)
+    box-sizing: border-box
+    border: 2px solid #E5E5E5
+
+  .handle
+    width: 41px
+    height: 41px
+    background-color: white
+    top: 2px
+    left: 2px
+    position: absolute
+    border-radius: 20px
+    box-shadow: 0 0 3px 1px hsla(0, 0%, 0%, .075), 0 3px 5px hsla(0, 0%, 0%, .15), 1px 2px 2px hsla(0, 0%, 0%, .05)
+    z-index: 3
+    transition: transform .3s 0.25s cubic-bezier(0.455, 0.030, 0.215, 1.330)
+  
+  &.off
+    .handle
+      animation: expand-off .3s 0.2s
+      transform: translate3d(0px, 0, 0)
+    
+    .on-background
+      transition: .3s 0s
+
+    .state-background
+      transition: .4s 0.25s
+
+  &.on
+    .handle
+      animation: expand-on .3s 0.2s
+      transform: translate3d(30px, 0, 0)
+    
+    .on-background
+      opacity: 1
+    
+    .state-background
+      transform: scale(0)
+
+
+@keyframes expand-on
+  0%
+    width: 41px
+  
+  40%
+    width: 50px
+  
+  100%
+    width: 41px
+  
+
+@keyframes expand-off
+  0%
+    width: 41px
+    left: 2px
+  
+  40%
+    width: 50px
+    left: -7px
+  
+  100%
+    width: 41px
+    left: 2px
+  
+
+

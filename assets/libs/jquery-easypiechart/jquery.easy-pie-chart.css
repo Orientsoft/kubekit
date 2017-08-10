@@ -1,0 +1,42 @@
+
+.easyPieChart {
+    position: relative;
+    text-align: center;
+}
+.easyPieChart canvas {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+.chart {
+    display: inline-block;
+    height: 150px;
+    margin-bottom: 50px;
+    margin-top: 20px;
+    margin-right:30px;
+    position: relative;
+    text-align: center;
+    width: 150px;
+}
+.chart canvas {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+.cpercent {
+    display: inline-block;
+    line-height: 150px;
+    z-index: 2;
+}
+.cpercent:after {
+    content: "%";
+    font-size: 0.8em;
+    margin-left: 0.1em;
+}
+.percentage, .chart .label {
+    color: #333;
+    font-size: 1.2em;
+    font-weight: 300;
+    margin-bottom: 0.3em;
+    text-align: center;
+}

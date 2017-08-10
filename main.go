@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"kubekit/controllers"
 	"kubekit/utils"
 	"os"
@@ -68,7 +67,8 @@ func main() {
 			Aliases: []string{"s"},
 			Usage:   "Start kubekit toolkit server.",
 			Action: func(c *cli.Context) error {
-				fmt.Println("Server is starting...")
+				// Launch toolkit server only
+				controllers.StartToolkitServer()
 				return nil
 			},
 		},

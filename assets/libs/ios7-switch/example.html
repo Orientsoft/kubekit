@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>iOS7 Switch</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0;">
+
+    <link rel="stylesheet" href="build/build.css" type="text/css" media="screen" charset="utf-8">
+    <style type="text/css" media="screen">
+        html, body { margin: 0; padding: 0; height: 100%; position: relative;}
+        .ios-switch{
+          position: relative;
+          top: 50%;
+          margin: 0 auto;
+        }
+        footer { position: absolute; bottom: 0; width: 100%; text-align: center; }
+        footer small{ margin-top: 70px; margin-bottom: 70px; font-size: .9em; display: block; font-family: monospace; text-align: center; color: hsl(0, 0%, 40%); }
+        footer small a{ text-decoration: none; font-weight: bold; color: hsl(0, 0%, 20%); }
+    </style>
+  </head>
+  <body>
+
+  <input type="checkbox" name="switch" />
+
+  <footer>
+    <small>by <a href="http://mnmly.com" target="_blank">mnmly</a> / grab it on <a href="http://github.com/mnmly/ios7-switch/">github</a></small>
+  </footer>
+
+  <script src="build/build.js"></script>
+  <script type="text/javascript" charset="utf-8">
+
+      var Switch = require('ios7-switch')
+        , checkbox = document.querySelector('input')
+        , mySwitch = new Switch(checkbox);
+
+      mySwitch.el.addEventListener('click', function(e){
+        e.preventDefault();
+        mySwitch.toggle();
+      }, false)
+  </script>
+  </body>
+</html>
+
+
