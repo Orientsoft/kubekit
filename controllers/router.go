@@ -14,7 +14,7 @@ type MainRouter struct {
 func StartToolkitServer() {
 	r := gin.Default()
 
-	r.Static("/static", "./static")
+	r.Static("/assets", "./assets")
 	r.LoadHTMLGlob("templates/*")
 
 	mainRouter := &MainRouter{}
