@@ -36,7 +36,8 @@ func (self *MainRouter) Initialize(r *gin.Engine) {
 
 	//Node operation
 	self.router.GET("/node/list", self.ListNodesHandler)
-	self.router.POST("/node", self.CreateNodesHandler)
+	self.router.POST("/node", self.CreateNodeHandler)
+	self.router.PUT("/node/:id/remove", self.RemoveNodeHandler)
 
 	color.Green("\r\n%sToolkit server is listening at: 0.0.0.0:9000", utils.CheckSymbol)
 	self.router.Run(":9000")
