@@ -12,6 +12,7 @@ type NodeList struct {
 }
 
 type Node struct {
+	ID        string `json:"id"`
 	Name      string `json:"name"`
 	IP        string `json:"ip"`
 	Port      int    `json:"port"`
@@ -19,6 +20,13 @@ type Node struct {
 	CreatedAt string `json:"createdAt"`
 	Status    int    `josn:"status"`
 	Comment   string `json:"comment"`
+}
+
+func (n *NodeList) Remove(index int) []Node {
+	newNodes := []Node{}
+	newNodes = append(n.Nodes[:index], n.Nodes[index+1:]...)
+
+	return newNodes
 }
 
 func (n *NodeList) Serialize() error {

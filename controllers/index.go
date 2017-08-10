@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"kubekit/models"
+	"kubekit/utils"
 	"net/http"
 	"time"
 
@@ -13,6 +14,19 @@ func (router *MainRouter) IndexHandler(c *gin.Context) {
 }
 
 func (router *MainRouter) ListNodesHandler(c *gin.Context) {
+	resp := models.Response{Success: true, Data: router.nodeList}
+	c.JSON(http.StatusOK, resp)
+}
+
+func (router *MainRouter) RemoveNodesHandler(c *gin.Context) {
+	//cid, err := strconv.Atoi(c.Param("id"))
+
+	//if err != nil {
+	//resp := models.Response{Success: false, Message: "邀请码ID参数不正确"}
+	//c.JSON(http.StatusOK, resp)
+	//return
+	//}
+
 	c.JSON(http.StatusOK, router.nodeList)
 }
 
@@ -33,6 +47,7 @@ func (router *MainRouter) CreateNodesHandler(c *gin.Context) {
 		}
 	}
 
+	node.ID = utils.GenerateUUID(16)
 	node.CreatedAt = time.Now().Format("2006-01-02 15:04:05")
 	router.nodeList.Nodes = append(router.nodeList.Nodes, node)
 
