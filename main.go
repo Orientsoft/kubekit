@@ -23,7 +23,7 @@ func main() {
 
 	app := cli.NewApp()
 	app.Name = "KubeKit"
-	app.Usage = "A kubernetes toolkit for offline deploying K8S & apps."
+	app.Usage = "A toolkit for Kubernetes & apps offline deployment."
 	app.Version = "0.1.0"
 	app.Action = func(c *cli.Context) error {
 		return nil
