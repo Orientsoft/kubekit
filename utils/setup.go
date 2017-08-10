@@ -74,7 +74,7 @@ func matchToken(buf []byte) {
 
 		//Get the token string
 		token := strings.Split(string(result), " ")[3]
-		ioutil.WriteFile("./.k8s-token", []byte(token), os.ModeAppend)
+		ioutil.WriteFile("./.k8s-token", []byte(token), os.FileMode(0644))
 		color.Green("%sMaster token %s saved into .k8s.token file.", CheckSymbol, token)
 	}
 }
@@ -93,7 +93,7 @@ func outputProgress(buf []byte) {
 }
 
 func SaveMasterIP(masterIP string) {
-	ioutil.WriteFile("./.master-ip", []byte(masterIP), os.ModeAppend)
+	ioutil.WriteFile("./.master-ip", []byte(masterIP), os.FileMode(0644))
 }
 
 func saveLog(stdout io.ReadCloser, saveToken bool) {

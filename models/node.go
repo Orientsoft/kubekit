@@ -14,20 +14,23 @@ type NodeList struct {
 type Node struct {
 	Name      string `json:"name"`
 	IP        string `json:"ip"`
+	Port      int    `json:"port"`
+	Password  string `json:"password"`
 	CreatedAt string `json:"createdAt"`
 	Status    int    `josn:"status"`
 	Comment   string `json:"comment"`
 }
 
-func (n *NodeList) Serialize(p interface{}, file string) error {
-	bytes, err := json.Marshal(p)
+func (n *NodeList) Serialize() error {
+	bytes, err := json.Marshal(n)
 
 	if err != nil {
 		fmt.Println(err.Error())
 		return err
 	}
 
-	ioutil.WriteFile("./.nodes", bytes, os.ModeAppend)
+	fmt.Println("Come here...")
+	ioutil.WriteFile("./.nodes", bytes, os.FileMode(0644))
 	return nil
 }
 

@@ -3,3 +3,4 @@ install.log
 package/*
 .master-ip
 .DS_Store
+.nodes
