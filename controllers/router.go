@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"kubekit/models"
 	"kubekit/utils"
 
 	"github.com/fatih/color"
@@ -8,7 +9,8 @@ import (
 )
 
 type MainRouter struct {
-	router *gin.Engine
+	router   *gin.Engine
+	nodeList *models.NodeList
 }
 
 func StartToolkitServer() {
@@ -22,6 +24,12 @@ func StartToolkitServer() {
 }
 
 func (self *MainRouter) Initialize(r *gin.Engine) {
+
+	//Initialize node list
+	self.nodeList = new(models.NodeList)
+	if err := self.nodeList.Deserialize(); err != nil {
+		self.nodeList.Nodes = []models.Node{}
+	}
 
 	self.router = r
 	self.router.GET("/", self.IndexHandler)
