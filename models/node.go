@@ -31,15 +31,14 @@ func (n *NodeList) Serialize(p interface{}, file string) error {
 	return nil
 }
 
-func (n *NodeList) Deserialize() (*NodeList, error) {
+func (nl *NodeList) Deserialize() error {
 	raw, err := ioutil.ReadFile("./.nodes")
 
 	if err != nil {
 		fmt.Println(err.Error())
-		return nil, err
+		return err
 	}
 
-	node := &NodeList{}
-	json.Unmarshal(raw, node)
-	return node, nil
+	json.Unmarshal(raw, nl)
+	return nil
 }
