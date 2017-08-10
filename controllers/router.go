@@ -25,6 +25,7 @@ func (self *MainRouter) Initialize(r *gin.Engine) {
 
 	self.router = r
 	self.router.GET("/", self.IndexHandler)
+	self.router.GET("/node/list", self.ListNodesHandler)
 
 	color.Green("\r\n%sToolkit server is listening at: 0.0.0.0:9000", utils.CheckSymbol)
 	self.router.Run(":9000")
