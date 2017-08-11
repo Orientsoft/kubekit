@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  
+
   //节点提交验证
   $('#nodeForm').bootstrapValidator({
     message: 'This value is not valid',
@@ -52,6 +52,9 @@ $(document).ready(function () {
       },
       port: {
         validators: {
+          notEmpty: {
+            message: 'SSH端口号必填'
+          },
           digits: {
             message: '端口号只能为数字'
           }
@@ -61,21 +64,26 @@ $(document).ready(function () {
   });
 
   //提交添加节点
-  $('#add-node').on('click', function () {
-    console.log("clicked...");
-    e.preventDefault();
-
-    //3. Send request & show account info panel.
-    var form = $('#create-form');
-    var url = form.attr("action");
-    $.post(url, form.serialize(), function (resp) {
-      if (resp.success) {
-
-      } else {
-        //toastr.warning(data.message);
-        return false;
-      }
-    }, "json");
+  $('#add-node').on('click', function(e){
+    // Send request to add new node
+    axios.post('/node', {
+        name: $('#name').val(),
+        ip: $('#ip').val(),
+        port: parseInt($('#port').val()),
+        password: $('#password').val(),
+      })
+      .then(function (response) {
+        if (response.data.success) {
+          $("#close-modal").trigger("click");
+          toastr.success('成功添加节点!');
+        } else {
+          toastr.error('请求发生错误, 无法成功添加节点! <br/>' + response.data.message);
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+        toastr.error('请求发生错误, 无法成功添加节点!');
+      });
   });
 
 })

@@ -49,6 +49,12 @@ func (router *MainRouter) CreateNodeHandler(c *gin.Context) {
 		return
 	}
 
+	if node.Name == "" || node.IP == "" {
+		resp := models.Response{Success: false, Message: "节点名称或IP不能为空!"}
+		c.JSON(http.StatusOK, &resp)
+		return
+	}
+
 	for _, n := range router.nodeList.Nodes {
 		if n.Name == node.Name || n.IP == node.IP {
 			resp := models.Response{Success: false, Message: "节点名称或IP重复!"}

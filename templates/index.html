@@ -22,6 +22,8 @@
 	<link href="assets/libs/sortable/sortable-theme-bootstrap.css" rel="stylesheet" />
 	<link href="assets/libs/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" />
 	<link href="assets/libs/jquery-icheck/skins/all.css" rel="stylesheet" />
+
+	<link href="assets/libs/toastr/toastr.min.css" rel="stylesheet" />
 	<!-- Code Highlighter for Demo -->
 	<link href="assets/libs/prettify/github.css" rel="stylesheet" />
 
@@ -215,7 +217,7 @@
 										<input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="再次确认SSH登录密码">
 									</div>
 									<button id="add-node" class="btn btn-default">添加</button>
-									<button class="btn btn-danger md-close">关闭</button>
+									<button id="close-modal" class="btn btn-danger md-close">关闭</button>
 								</form>
 							</div>
 						</div>
@@ -263,6 +265,10 @@
 	<script src="assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="assets/libs/jquery-icheck/icheck.min.js"></script>
 	<script src="assets/libs/bootstrap-validator/js/bootstrapValidator.min.js"></script>
+	<script src="assets/libs/axios/axios.min.js"></script>
+
+	<!-- notify library -->
+	<script src="assets/libs/toastr/toastr.min.js"></script>
 
 	<!-- Demo Specific JS Libraries -->
 	<script src="assets/libs/prettify/prettify.js"></script>
