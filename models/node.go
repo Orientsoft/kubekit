@@ -18,7 +18,7 @@ type Node struct {
 	Port      int    `json:"port"`
 	Password  string `json:"password"`
 	CreatedAt string `json:"createdAt"`
-	Status    int    `josn:"status"`
+	Status    int    `josn:"status"`   // 0:已添加, 1:无法连接, 2:待部署, 3:部署中, 4:已部署
 	Comment   string `json:"comment"`
 }
 
