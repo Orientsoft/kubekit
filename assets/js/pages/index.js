@@ -1,8 +1,9 @@
 $(document).ready(function () {
-
   //节点提交验证
   $('#nodeForm').bootstrapValidator({
     message: 'This value is not valid',
+    submitHandler: null,
+    live: 'disabled',
     fields: {
       name: {
         message: '节点名称不合法',
@@ -64,26 +65,59 @@ $(document).ready(function () {
   });
 
   //提交添加节点
-  $('#add-node').on('click', function(e){
-    // Send request to add new node
-    axios.post('/node', {
-        name: $('#name').val(),
-        ip: $('#ip').val(),
-        port: parseInt($('#port').val()),
-        password: $('#password').val(),
-      })
-      .then(function (response) {
-        if (response.data.success) {
-          $("#close-modal").trigger("click");
-          toastr.success('成功添加节点!');
-        } else {
-          toastr.error('请求发生错误, 无法成功添加节点! <br/>' + response.data.message);
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-        toastr.error('请求发生错误, 无法成功添加节点!');
-      });
+  $('#add-node').click(function (e) {
+    e.preventDefault();
+
+    var bootstrapValidator = $('#nodeForm').data('bootstrapValidator');
+    //手动触发验证
+    bootstrapValidator.validate();
+    if (bootstrapValidator.isValid()) {
+      // Send request to add new node
+      axios.post('/node', {
+          name: $('#name').val(),
+          ip: $('#ip').val(),
+          port: parseInt($('#port').val()),
+          password: $('#password').val(),
+        })
+        .then(function (response) {
+          if (response.data.success) {
+            toastr.success('成功添加节点!');
+            $("#close-modal").trigger("click");
+            setTimeout(function () {
+              location.reload();
+            }, 3000);
+          } else {
+            toastr.error('请求发生错误, 无法成功添加节点! <br/>' + response.data.message);
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+          toastr.error('请求发生错误, 无法成功添加节点!');
+        });
+    }
+
+    //e.preventDefault();
+
+    // $.ajax('/node', {
+    //   data: JSON.stringify({
+    //     name: $('#name').val(),
+    //     ip: $('#ip').val(),
+    //     port: parseInt($('#port').val()),
+    //     password: $('#password').val(),
+    //   }),
+    //   contentType: 'application/json',
+    //   type: 'POST',
+    //   dataType: 'json',
+    //   success: function (response) {
+    //     if (response.success) {
+    //       toastr.success('成功添加节点!');
+    //       $("#close-modal").trigger("click");
+    //     } else {
+    //       toastr.error('请求发生错误, 无法成功添加节点! <br/>' + response.message);
+    //     }
+    //   }
+    // });
+
   });
 
 })
