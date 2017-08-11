@@ -193,24 +193,28 @@
 						<div class="md-content">
 							<h3>添加节点</h3>
 							<div>
-								<form role="form">
+								<form role="form" id="nodeForm">
 									<div class="form-group">
 										<label for="exampleInputEmail1">节点名称</label>
-										<input type="text" class="form-control" name="name" placeholder="name">
+										<input type="text" class="form-control" id="name" name="name" placeholder="name">
 									</div>
 									<div class="form-group">
 										<label for="exampleInputPassword1">内网IP</label>
-										<input type="text" class="form-control" name="ip" placeholder="example: 10.0.0.1">
+										<input type="text" class="form-control" id="ip" name="ip" placeholder="example: 10.0.0.1">
 									</div>
 									<div class="form-group">
 										<label for="exampleInputPassword1">SSH端口</label>
-										<input type="text" class="form-control" name="port" placeholder="22">
+										<input type="text" class="form-control" id="port" name="port" placeholder="22">
 									</div>
 									<div class="form-group">
 										<label for="exampleInputPassword1">登录密码</label>
-										<input type="text" class="form-control" name="password" placeholder="SSH登录密码">
+										<input type="text" class="form-control" id="password" name="password" placeholder="SSH登录密码">
 									</div>
-									<button type="submit" class="btn btn-default">添加</button>
+									<div class="form-group">
+										<label for="exampleInputPassword1">确认登录密码</label>
+										<input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="SSH登录密码">
+									</div>
+									<button id="add-node" class="btn btn-default">添加</button>
 									<button class="btn btn-danger md-close">关闭</button>
 								</form>
 							</div>
@@ -258,10 +262,12 @@
 	<script src="assets/libs/pace/pace.min.js"></script>
 	<script src="assets/libs/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 	<script src="assets/libs/jquery-icheck/icheck.min.js"></script>
+	<script src="assets/libs/bootstrap-validator/js/bootstrapValidator.min.js"></script>
 
 	<!-- Demo Specific JS Libraries -->
 	<script src="assets/libs/prettify/prettify.js"></script>
 	<script src="assets/js/init.js"></script>
+	<script src="assets/js/pages/index.js"></script>
 </body>
 
 </html>
