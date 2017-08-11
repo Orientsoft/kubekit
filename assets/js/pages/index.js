@@ -95,29 +95,13 @@ $(document).ready(function () {
           toastr.error('请求发生错误, 无法成功添加节点!');
         });
     }
-
-    //e.preventDefault();
-
-    // $.ajax('/node', {
-    //   data: JSON.stringify({
-    //     name: $('#name').val(),
-    //     ip: $('#ip').val(),
-    //     port: parseInt($('#port').val()),
-    //     password: $('#password').val(),
-    //   }),
-    //   contentType: 'application/json',
-    //   type: 'POST',
-    //   dataType: 'json',
-    //   success: function (response) {
-    //     if (response.success) {
-    //       toastr.success('成功添加节点!');
-    //       $("#close-modal").trigger("click");
-    //     } else {
-    //       toastr.error('请求发生错误, 无法成功添加节点! <br/>' + response.message);
-    //     }
-    //   }
-    // });
-
   });
-
 })
+
+function refreshNode(nodeName) {
+  console.log('Refresh node:' + nodeName);
+}
+
+function removeNode(nodeName) {
+  console.log('Remove node:' + nodeName);
+}
