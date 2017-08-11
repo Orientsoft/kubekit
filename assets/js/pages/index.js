@@ -21,40 +21,39 @@ $(document).ready(function () {
           }
         }
       },
+      ip: {
+        validators: {
+          notEmpty: {
+            message: '内网IP地址不能为空'
+          },
+          regexp: {
+            regexp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
+            message: '请输入正确的内网IPV4地址'
+          }
+        }
+      },
       password: {
         validators: {
           notEmpty: {
-            message: 'The password is required and can\'t be empty'
-          },
-          identical: {
-            field: 'confirmPassword',
-            message: 'The password and its confirm are not the same'
-          },
-          different: {
-            field: 'username',
-            message: 'The password can\'t be the same as username'
+            message: 'SSH密码不能为空'
           }
         }
       },
       confirmPassword: {
         validators: {
           notEmpty: {
-            message: 'The confirm password is required and can\'t be empty'
+            message: 'SSH密码不能为空'
           },
           identical: {
             field: 'password',
-            message: 'The password and its confirm are not the same'
-          },
-          different: {
-            field: 'username',
-            message: 'The password can\'t be the same as username'
+            message: '密码两次输入不一致'
           }
         }
       },
-      phoneNumber: {
+      port: {
         validators: {
           digits: {
-            message: 'The value can contain only digits'
+            message: '端口号只能为数字'
           }
         }
       }
