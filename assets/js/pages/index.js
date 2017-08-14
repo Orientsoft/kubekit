@@ -83,9 +83,10 @@ $(document).ready(function () {
           if (response.data.success) {
             toastr.success('成功添加节点!');
             $("#close-modal").trigger("click");
+            //Refresh page
             setTimeout(function () {
               location.reload();
-            }, 3000);
+            }, 2000);
           } else {
             toastr.error('请求发生错误, 无法成功添加节点! <br/>' + response.data.message);
           }
@@ -98,10 +99,26 @@ $(document).ready(function () {
   });
 })
 
-function refreshNode(nodeName) {
-  console.log('Refresh node:' + nodeName);
+function refreshNode(nodeId) {
+  console.log('Refresh node:' + nodeId);
 }
 
-function removeNode(nodeName) {
-  console.log('Remove node:' + nodeName);
+function removeNode(nodeId) {
+
+  console.log('Remove node:' + nodeId);
+  axios.put("/node/" + nodeId + "/remove")
+    .then((response) => {
+      if (response.data.success) {
+        toastr.success('成功移除节点!');
+        //Refresh page
+        setTimeout(function () {
+          location.reload();
+        }, 2000);
+      } else {
+        toastr.error('移除节点失败!');
+      }
+    })
+    .catch((error) => {
+      toastr.error('移除节点失败!');
+    });
 }

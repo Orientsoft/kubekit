@@ -9,6 +9,7 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 
+	
 	<!-- Base Css Files -->
 	<link href="assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
 	<link href="assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -167,8 +168,8 @@
 												<td></td>
 												<td>
 													<div class="btn-group btn-group-xs">
-														<a data-toggle="tooltip" title="刷新" class="btn btn-default" onclick="refreshNode('{{ .ID }}')"><i class="fa fa-refresh"></i></a>
-														<a data-toggle="tooltip" title="移除" class="btn btn-default" onclick="removeNode('{{ .ID }}')"><i class="fa fa-trash"></i></a>
+														<a data-toggle="tooltip" title="刷新" class="btn btn-default md-trigger" data-modal="md-remove-node" onclick="refreshNode('{{ .ID }}')"><i class="fa fa-refresh"></i></a>
+														<a data-toggle="tooltip" title="移除" class="btn btn-default" data-modal="md-remove-node" onclick="removeNode('{{ .ID }}')"><i class="fa fa-trash"></i></a>
 													</div>
 												</td>
 											</tr>
@@ -223,6 +224,16 @@
 						</div>
 						<!-- End div .md-content -->
 					</div>
+					<div class="md-modal md-remove-node" id="md-remove-node">
+						<div class="md-content">
+							<h3>移除节点</h3>
+							<div>
+								<button id="add-node" class="btn btn-default">添加</button>
+								<button id="close-modal" class="btn btn-danger md-close">关闭</button>
+							</div>
+						</div>
+						<!-- End div .md-content -->
+					</div>
 				</div>
 
 				<!-- Footer Start -->
@@ -238,6 +249,9 @@
 		<!-- End right content -->
 	</div>
 	<!-- End of page -->
+	<!-- the overlay modal element -->
+	<div class="md-overlay"></div>
+	<!-- End of eoverlay modal -->
 	<script>
 		var resizefunc = [];
 	</script>
