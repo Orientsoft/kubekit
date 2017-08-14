@@ -1,8 +1,13 @@
 $(document).ready(function () {
   selNodes = [];
 
+  if (selNodes.length ===0) {
+    $('#btn-deploy').attr('disabled', 'disabled');
+  }
+
   $('td input').on('ifChecked', function (event) {
     selNodes.push(event.target.id);
+    $('#btn-deploy').removeAttr('disabled');
     console.log(selNodes);
   });
 
@@ -11,6 +16,10 @@ $(document).ready(function () {
       if (selNodes[i] === event.target.id) {
         selNodes.splice(i, 1);
       }
+    }
+
+    if (selNodes.length ===0) {
+      $('#btn-deploy').attr('disabled', 'disabled');
     }
 
     console.log(selNodes);

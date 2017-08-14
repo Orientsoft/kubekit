@@ -164,7 +164,7 @@
 										<div class="col-md-12">
 											<div class="toolbar-btn-action">
 												<a class="btn btn-success md-trigger" data-modal="md-add-node"><i class="fa fa-plus-circle"></i> 添加节点</a>
-												<a class="btn btn-warning"><i class="fa fa-paper-plane"></i> 一键部署</a>
+												<a id="btn-deploy" class="btn btn-warning"><i class="fa fa-paper-plane"></i> 一键部署</a>
 											</div>
 										</div>
 									</div>
@@ -189,7 +189,7 @@
 										<tbody>
 											{{ range .Nodes }}
 											<tr>
-												<td><input id="{{ .ID }}" type="checkbox" class="rows-check" onclick="checkboxChanged('{{ .ID }}')"></td>
+												<td><input id="{{ .ID }}" type="checkbox" class="rows-check"></td>
 												<td><strong>{{ .Name }}</strong></td>
 												<td>{{ .IP }}</td>
 												<td>{{ .Port }}</td>
