@@ -38,6 +38,7 @@ func (self *MainRouter) Initialize(r *gin.Engine) {
 	self.router.GET("/node/list", self.ListNodesHandler)
 	self.router.POST("/node", self.CreateNodeHandler)
 	self.router.PUT("/node/:id/remove", self.RemoveNodeHandler)
+	self.router.GET("/node/:id/refresh", self.RefreshNodeHandler)
 
 	color.Green("\r\n%sToolkit server is listening at: 0.0.0.0:9000", utils.CheckSymbol)
 	self.router.Run(":9000")

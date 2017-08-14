@@ -14,6 +14,9 @@ func (router *MainRouter) ListNodesHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
+func (router *MainRouter) RefreshNodeHandler(c *gin.Context) {
+}
+
 func (router *MainRouter) RemoveNodeHandler(c *gin.Context) {
 	nid := c.Param("id")
 
