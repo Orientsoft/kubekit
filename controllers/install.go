@@ -46,10 +46,23 @@ func (router *MainRouter) NodeProgressHandler(c *gin.Context) {
 		return
 	}
 
+	var comment string
 	switch step {
 	case "1":
+		comment = "(1/5) 安装Docker Engine"
 	case "2":
+		comment = "(2/5) 载入Kubernetes镜像"
 	case "3":
+		comment = "(3/5) 安装Kubernetes组件"
 	case "4":
+		comment = "(4/5) 初始化并加入集群"
+	case "5":
+		comment = "(5/5) 节点初始化完成"
 	}
+
+	//Update node status
+	router.nodeList.UpdateNodeStatus(id, comment)
+	//Update node map in memory
+	node := router.nodeMap[id]
+	node.Comment = comment
 }

@@ -5,6 +5,11 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"sync"
+)
+
+var (
+	mux sync.Mutex
 )
 
 type NodeList struct {
@@ -29,6 +34,21 @@ func (n *NodeList) Remove(index int) []Node {
 	return newNodes
 }
 
+func (n *NodeList) UpdateNodeStatus(id, comment string) {
+	mux.Lock()
+	defer mux.Unlock()
+
+	//Update node list
+	for i := 0; i < len(n.Nodes); i++ {
+		if n.Nodes[i].ID == id {
+			n.Nodes[i].Comment = comment
+		}
+	}
+
+	//Serialize nodes
+	n.Serialize()
+}
+
 func (n *NodeList) Serialize() error {
 	bytes, err := json.Marshal(n)
 
@@ -37,7 +57,6 @@ func (n *NodeList) Serialize() error {
 		return err
 	}
 
-	fmt.Println("Come here...")
 	ioutil.WriteFile("./.nodes", bytes, os.FileMode(0644))
 	return nil
 }
