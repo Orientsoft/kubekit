@@ -1,7 +1,7 @@
 $(document).ready(function () {
   selNodes = [];
 
-  if (selNodes.length ===0) {
+  if (selNodes.length === 0) {
     $('#btn-deploy').attr('disabled', 'disabled');
   }
 
@@ -18,7 +18,7 @@ $(document).ready(function () {
       }
     }
 
-    if (selNodes.length ===0) {
+    if (selNodes.length === 0) {
       $('#btn-deploy').attr('disabled', 'disabled');
     }
 
@@ -107,19 +107,19 @@ $(document).ready(function () {
         })
         .then(function (response) {
           if (response.data.success) {
-            toastr.success('成功添加节点!');
+            toastr.success('创建批量部署任务!');
             $("#close-modal").trigger("click");
             //Refresh page
             setTimeout(function () {
               location.reload();
             }, 2000);
           } else {
-            toastr.error('请求发生错误, 无法成功添加节点! <br/>' + response.data.message);
+            toastr.error('请求发生错误, 无法创建批量部署任务! <br/>' + response.data.message);
           }
         })
         .catch(function (error) {
           console.log(error);
-          toastr.error('请求发生错误, 无法成功添加节点!');
+          toastr.error('请求发生错误, 无法创建批量部署任务!');
         });
     }
   });
@@ -149,14 +149,24 @@ function removeNode(nodeId) {
     });
 }
 
-function checkboxChanged(id) {
-  console.log('goes here...');
-
-  var checkbox = $("#" + id).parent();
-  if (checkbox.attr('aria-checked')) {
-    //Checkbox has been checked
-    alert('you got it!');
-  } else {
-    //Checkbox has been unchecked
-  }
+function batchInstall() {
+  axios.post('/install', {
+      ids: selNodes
+    })
+    .then(function (response) {
+      if (response.data.success) {
+        toastr.success('成功创建批量部署任务!');
+        $("#close-modal").trigger("click");
+        //Refresh page
+        setTimeout(function () {
+          location.reload();
+        }, 2000);
+      } else {
+        toastr.error('请求发生错误, 无法创建批量部署任务! <br/>' + response.data.message);
+      }
+    })
+    .catch(function (error) {
+      console.log(error);
+      toastr.error('请求发生错误, 无法创建批量部署任务!');
+    });
 }

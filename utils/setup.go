@@ -96,6 +96,16 @@ func SaveMasterIP(masterIP string) {
 	ioutil.WriteFile("./.master-ip", []byte(masterIP), os.FileMode(0644))
 }
 
+func GetMasterIP() string {
+	content, err := ioutil.ReadFile("./.master-ip")
+
+	if err != nil {
+		return ""
+	}
+
+	return string(content)
+}
+
 func saveLog(stdout io.ReadCloser, saveToken bool) {
 
 	fd, _ := os.OpenFile("install.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)

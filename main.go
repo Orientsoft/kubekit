@@ -67,6 +67,8 @@ func main() {
 			Aliases: []string{"s"},
 			Usage:   "Start kubekit toolkit server.",
 			Action: func(c *cli.Context) error {
+				srv := utils.StartServer()
+				defer srv.Shutdown(context.Background())
 				// Launch toolkit server only
 				controllers.StartToolkitServer()
 				return nil

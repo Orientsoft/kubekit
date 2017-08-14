@@ -11,6 +11,7 @@ import (
 type MainRouter struct {
 	router   *gin.Engine
 	nodeList *models.NodeList
+	nodeMap  map[string]*models.Node
 }
 
 func StartToolkitServer() {
@@ -31,14 +32,24 @@ func (self *MainRouter) Initialize(r *gin.Engine) {
 		self.nodeList.Nodes = []models.Node{}
 	}
 
+	//Initialize node map
+	self.nodeMap = map[string]*models.Node{}
+	for i := 0; i < len(self.nodeList.Nodes); i++ {
+		self.nodeMap[self.nodeList.Nodes[i].ID] = &self.nodeList.Nodes[i]
+	}
+
 	self.router = r
 	self.router.GET("/", self.IndexHandler)
 
-	//Node operation
+	//Node operations
 	self.router.GET("/node/list", self.ListNodesHandler)
 	self.router.POST("/node", self.CreateNodeHandler)
-	self.router.PUT("/node/:id/remove", self.RemoveNodeHandler)
-	self.router.GET("/node/:id/refresh", self.RefreshNodeHandler)
+	self.router.PUT("/node/remove/:id", self.RemoveNodeHandler)
+	self.router.GET("/node/refresh/:id", self.RefreshNodeHandler)
+
+	//Installation operations
+	self.router.POST("/install", self.InstallNodeHandler)
+	self.router.GET("/install/progress/:id/:step", self.NodeProgressHandler)
 
 	color.Green("\r\n%sToolkit server is listening at: 0.0.0.0:9000", utils.CheckSymbol)
 	self.router.Run(":9000")

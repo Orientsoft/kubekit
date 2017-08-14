@@ -37,6 +37,8 @@ func (router *MainRouter) RemoveNodeHandler(c *gin.Context) {
 				c.JSON(http.StatusOK, &resp)
 				return
 			}
+
+			delete(router.nodeMap, nid)
 		}
 	}
 
@@ -78,6 +80,7 @@ func (router *MainRouter) CreateNodeHandler(c *gin.Context) {
 		return
 	}
 
+	router.nodeMap[node.ID] = &node
 	resp := models.Response{Success: true, Message: "OK!", Data: nil}
 	c.JSON(http.StatusOK, resp)
 }
