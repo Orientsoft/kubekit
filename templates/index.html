@@ -84,7 +84,7 @@
 		</div>
 		<!-- End div .md-content -->
 	</div>
-	<div class="md-modal" id="md-remove-node">
+	<div class="md-modal md-fade-in-scale-up" id="md-remove-node">
 		<div class="md-content">
 			<h3>移除节点</h3>
 			<div>
@@ -96,7 +96,6 @@
 	</div>
 	<!-- Begin page -->
 	<div id="wrapper">
-
 		<!-- Top Bar Start -->
 		<div class="topbar">
 			<div class="topbar-left">
@@ -190,7 +189,7 @@
 										<tbody>
 											{{ range .Nodes }}
 											<tr>
-												<td><input type="checkbox" class="rows-check"></td>
+												<td><input id="{{ .ID }}" type="checkbox" class="rows-check" onclick="checkboxChanged('{{ .ID }}')"></td>
 												<td><strong>{{ .Name }}</strong></td>
 												<td>{{ .IP }}</td>
 												<td>{{ .Port }}</td>

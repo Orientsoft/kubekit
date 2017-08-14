@@ -1,4 +1,21 @@
 $(document).ready(function () {
+  selNodes = [];
+
+  $('td input').on('ifChecked', function (event) {
+    selNodes.push(event.target.id);
+    console.log(selNodes);
+  });
+
+  $('td input').on('ifUnchecked', function (event) {
+    for (var i = selNodes.length - 1; i >= 0; i--) {
+      if (selNodes[i] === event.target.id) {
+        selNodes.splice(i, 1);
+      }
+    }
+
+    console.log(selNodes);
+  });
+
   //节点提交验证
   $('#nodeForm').bootstrapValidator({
     message: 'This value is not valid',
@@ -121,4 +138,16 @@ function removeNode(nodeId) {
     .catch((error) => {
       toastr.error('移除节点失败!');
     });
+}
+
+function checkboxChanged(id) {
+  console.log('goes here...');
+
+  var checkbox = $("#" + id).parent();
+  if (checkbox.attr('aria-checked')) {
+    //Checkbox has been checked
+    alert('you got it!');
+  } else {
+    //Checkbox has been unchecked
+  }
 }
