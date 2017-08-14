@@ -9,7 +9,7 @@
 	<meta name="description" content="">
 	<meta name="keywords" content="">
 
-	
+
 	<!-- Base Css Files -->
 	<link href="assets/libs/jqueryui/ui-lightness/jquery-ui-1.10.4.custom.min.css" rel="stylesheet" />
 	<link href="assets/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -52,6 +52,48 @@
 </head>
 
 <body class="fixed-left">
+	<div class="md-modal md-3d-flip-horizontal" id="md-add-node">
+		<div class="md-content">
+			<h3>添加节点</h3>
+			<div>
+				<form role="form" id="nodeForm">
+					<div class="form-group">
+						<label for="exampleInputEmail1">节点名称</label>
+						<input type="text" class="form-control" id="name" name="name" placeholder="name">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">内网IP</label>
+						<input type="text" class="form-control" id="ip" name="ip" placeholder="example: 10.0.0.1">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">SSH端口</label>
+						<input type="text" class="form-control" id="port" name="port" placeholder="22">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">登录密码</label>
+						<input type="text" class="form-control" id="password" name="password" placeholder="SSH登录密码">
+					</div>
+					<div class="form-group">
+						<label for="exampleInputPassword1">确认登录密码</label>
+						<input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="再次确认SSH登录密码">
+					</div>
+					<button id="add-node" class="btn btn-default">添加</button>
+					<button id="close-modal" class="btn btn-danger md-close">关闭</button>
+				</form>
+			</div>
+		</div>
+		<!-- End div .md-content -->
+	</div>
+	<div class="md-modal" id="md-remove-node">
+		<div class="md-content">
+			<h3>移除节点</h3>
+			<div>
+				<button id="add-node" class="btn btn-default">添加</button>
+				<button id="close-modal" class="btn btn-danger md-close">关闭</button>
+			</div>
+		</div>
+		<!-- End div .md-content -->
+	</div>
 	<!-- Begin page -->
 	<div id="wrapper">
 
@@ -122,7 +164,7 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="toolbar-btn-action">
-												<a class="btn btn-success md-trigger" data-modal="md-3d-flip-vertical"><i class="fa fa-plus-circle"></i> 添加节点</a>
+												<a class="btn btn-success md-trigger" data-modal="md-add-node"><i class="fa fa-plus-circle"></i> 添加节点</a>
 												<a class="btn btn-warning"><i class="fa fa-paper-plane"></i> 一键部署</a>
 											</div>
 										</div>
@@ -192,61 +234,18 @@
 							</div>
 						</div>
 					</div>
-					<div class="md-modal md-3d-flip-vertical" id="md-3d-flip-vertical">
-						<div class="md-content">
-							<h3>添加节点</h3>
-							<div>
-								<form role="form" id="nodeForm">
-									<div class="form-group">
-										<label for="exampleInputEmail1">节点名称</label>
-										<input type="text" class="form-control" id="name" name="name" placeholder="name">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">内网IP</label>
-										<input type="text" class="form-control" id="ip" name="ip" placeholder="example: 10.0.0.1">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">SSH端口</label>
-										<input type="text" class="form-control" id="port" name="port" placeholder="22">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">登录密码</label>
-										<input type="text" class="form-control" id="password" name="password" placeholder="SSH登录密码">
-									</div>
-									<div class="form-group">
-										<label for="exampleInputPassword1">确认登录密码</label>
-										<input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="再次确认SSH登录密码">
-									</div>
-									<button id="add-node" class="btn btn-default">添加</button>
-									<button id="close-modal" class="btn btn-danger md-close">关闭</button>
-								</form>
-							</div>
+					<!-- Footer Start -->
+					<footer>
+						OrientSoft &copy; 2017
+						<div class="footer-links pull-right">
+							<a href="#">About</a><a href="#">Support</a>
 						</div>
-						<!-- End div .md-content -->
-					</div>
-					<div class="md-modal md-remove-node" id="md-remove-node">
-						<div class="md-content">
-							<h3>移除节点</h3>
-							<div>
-								<button id="add-node" class="btn btn-default">添加</button>
-								<button id="close-modal" class="btn btn-danger md-close">关闭</button>
-							</div>
-						</div>
-						<!-- End div .md-content -->
-					</div>
+					</footer>
+					<!-- Footer End -->
 				</div>
-
-				<!-- Footer Start -->
-				<footer>
-					OrientSoft &copy; 2017
-					<div class="footer-links pull-right">
-						<a href="#">About</a><a href="#">Support</a>
-					</div>
-				</footer>
-				<!-- Footer End -->
 			</div>
+			<!-- End right content -->
 		</div>
-		<!-- End right content -->
 	</div>
 	<!-- End of page -->
 	<!-- the overlay modal element -->
