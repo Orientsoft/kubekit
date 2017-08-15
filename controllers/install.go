@@ -64,7 +64,7 @@ func (router *MainRouter) NodeProgressHandler(c *gin.Context) {
 		comment = "(4/5) 初始化并加入集群"
 		status = 1
 	case "5":
-		comment = "(5/5) 节点初始化完成"
+		comment = "节点初始化完成"
 		status = 2
 	}
 

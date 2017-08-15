@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"kubekit/models"
 	"net"
+	"os"
 	"time"
 
 	"golang.org/x/crypto/ssh"
@@ -18,6 +19,10 @@ func ExecuteCmd(node *models.Node, cmd string) {
 	}
 
 	defer session.Close()
+	session.Stderr = os.Stderr
+	session.Stdout = os.Stdout
+
+	fmt.Println("GOROUTINE:", cmd)
 	session.Run(cmd)
 	//session.Run("curl -L http://192.168.0.80:8000/test.sh | bash -s master>install.log  2>&1 &")
 }

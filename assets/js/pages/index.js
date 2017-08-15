@@ -125,8 +125,42 @@ $(document).ready(function () {
   });
 })
 
+function parseStatus(status) {
+  switch (status) {
+    case 0:
+      return '<span class="label label-default">待部署</span>'
+      break;
+    case 1:
+      return '<span class="label label-info">部署中</span>'
+      break;
+    case 2:
+      return '<span class="label label-success">已部署</span>'
+      break;
+    case 3:
+      return '<span class="label label-warning">无法连接</span>'
+      break;
+    case 4:
+      return '<span class="label label-error">部署失败</span>'
+      break;
+  }
+}
+
 function refreshNode(nodeId) {
   console.log('Refresh node:' + nodeId);
+  axios.get("/node/refresh/" + nodeId)
+    .then((response) => {
+      if (response.data.success) {
+        toastr.success('成功更新节点!');
+        console.log(response.data.data);
+        $('#status-'+ response.data.data.id).html(parseStatus(response.data.data.status));
+        $('#comment-'+ response.data.data.id).text(response.data.data.comment);
+      } else {
+        toastr.error('更新节点失败!');
+      }
+    })
+    .catch((error) => {
+      toastr.error('更新节点失败!');
+    });
 }
 
 function removeNode(nodeId) {

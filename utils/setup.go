@@ -103,7 +103,7 @@ func GetMasterIP() string {
 		return ""
 	}
 
-	return string(content)
+	return strings.Replace(string(content), "\n", "", -1)
 }
 
 func saveLog(stdout io.ReadCloser, saveToken bool) {

@@ -15,6 +15,24 @@ func (router *MainRouter) ListNodesHandler(c *gin.Context) {
 }
 
 func (router *MainRouter) RefreshNodeHandler(c *gin.Context) {
+	nid := c.Param("id")
+	if nid == "" || len(nid) < 16 {
+		resp := models.Response{Success: false, Message: "节点ID参数不正确"}
+		c.JSON(http.StatusOK, resp)
+		return
+	}
+
+	for i := 0; i < len(router.nodeList.Nodes); i++ {
+		if router.nodeList.Nodes[i].ID == nid {
+			resp := models.Response{Success: true, Message: "ok", Data: router.nodeList.Nodes[i]}
+			c.JSON(http.StatusOK, resp)
+			return
+		}
+	}
+
+	resp := models.Response{Success: false, Message: "无法获取对应节点"}
+	c.JSON(http.StatusOK, resp)
+	return
 }
 
 func (router *MainRouter) RemoveNodeHandler(c *gin.Context) {

@@ -43,11 +43,14 @@ func (n *NodeList) UpdateNodeStatus(id, comment string, status int) {
 		if n.Nodes[i].ID == id {
 			n.Nodes[i].Comment = comment
 			n.Nodes[i].Status = status
+			break
 		}
 	}
 
 	//Serialize nodes
-	n.Serialize()
+	if err := n.Serialize(); err != nil {
+		fmt.Println("Serialize:", err.Error())
+	}
 }
 
 func (n *NodeList) Serialize() error {
