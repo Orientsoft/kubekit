@@ -106,6 +106,16 @@ func GetMasterIP() string {
 	return strings.Replace(string(content), "\n", "", -1)
 }
 
+func GetToken() string {
+	content, err := ioutil.ReadFile("./.k8s-token")
+
+	if err != nil {
+		return ""
+	}
+
+	return strings.Replace(string(content), "\n", "", -1)
+}
+
 func saveLog(stdout io.ReadCloser, saveToken bool) {
 
 	fd, _ := os.OpenFile("install.log", os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)

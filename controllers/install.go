@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	installCmd = "curl -L http://%s:8000/test.sh | bash -s %s %s>install.log 2>&1 &"
+	installCmd = "curl -L http://%s:8000/node.sh | bash -s %s %s --token=%s %s:6443>install.log 2>&1 &"
 )
 
 func (router *MainRouter) InstallNodeHandler(c *gin.Context) {
@@ -31,10 +31,11 @@ func (router *MainRouter) InstallNodeHandler(c *gin.Context) {
 
 func (router *MainRouter) startInstall(ids []string) {
 	masterIP := utils.GetMasterIP()
+	token := utils.GetToken()
 
-	if masterIP != "" {
+	if masterIP != "" && token != "" {
 		for _, id := range ids {
-			go utils.ExecuteCmd(router.nodeMap[id], fmt.Sprintf(installCmd, masterIP, masterIP, id))
+			go utils.ExecuteCmd(router.nodeMap[id], fmt.Sprintf(installCmd, masterIP, masterIP, id, token, masterIP))
 		}
 	}
 }
