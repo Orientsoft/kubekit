@@ -195,18 +195,18 @@
 												<td>{{ .Port }}</td>
 												<td>{{ .Password }}</td>
 												<td>{{ .CreatedAt }}</td>
-												{{ if eq .Status 0}}
-												<td><span class="label label-cool">待部署</span></td>
-												{{ else if .Satus 1}}
+												{{ if eq .Status 0 }}
+												<td><span class="label label-info">待部署</span></td>
+												{{ else if eq .Status 1}}
 												<td><span class="label label-info">部署中</span></td>
-												{{ else if .Satus 2}}
+												{{ else if eq .Status 2}}
 												<td><span class="label label-success">已部署</span></td>
-												{{ else if .Satus 3}}
+												{{ else if eq .Status 3}}
 												<td><span class="label label-warning">无法连接</span></td>
-												{{ else if .Satus 4}}
+												{{ else if eq .Status 4}}
 												<td><span class="label label-error">部署失败</span></td>
 												{{ end }}
-												<td></td>
+												<td>{{ .Comment }}</td>
 												<td>
 													<div class="btn-group btn-group-xs">
 														<a data-toggle="tooltip" title="刷新" class="btn btn-default md-trigger" data-modal="md-remove-node" onclick="refreshNode('{{ .ID }}')"><i class="fa fa-refresh"></i></a>

@@ -61,6 +61,11 @@ func (router *MainRouter) CreateNodeHandler(c *gin.Context) {
 		return
 	}
 
+	//Check SSH connection
+	if _, err := utils.Connect("root", node.Password, node.IP, node.Port); err != nil {
+		node.Status = 3
+	}
+
 	for _, n := range router.nodeList.Nodes {
 		if n.Name == node.Name || n.IP == node.IP {
 			resp := models.Response{Success: false, Message: "节点名称或IP重复!"}

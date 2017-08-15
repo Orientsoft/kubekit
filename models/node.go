@@ -23,7 +23,7 @@ type Node struct {
 	Port      int    `json:"port"`
 	Password  string `json:"password"`
 	CreatedAt string `json:"createdAt"`
-	Status    int    `josn:"status"` // 0:待部署, 1:部署中, 2:已部署成功, 3:无法连接, 4:部署失败
+	Status    int    `json:"status"` // 0:待部署, 1:部署中, 2:已部署成功, 3:无法连接, 4:部署失败
 	Comment   string `json:"comment"`
 }
 
@@ -34,7 +34,7 @@ func (n *NodeList) Remove(index int) []Node {
 	return newNodes
 }
 
-func (n *NodeList) UpdateNodeStatus(id, comment string) {
+func (n *NodeList) UpdateNodeStatus(id, comment string, status int) {
 	mux.Lock()
 	defer mux.Unlock()
 
@@ -42,6 +42,7 @@ func (n *NodeList) UpdateNodeStatus(id, comment string) {
 	for i := 0; i < len(n.Nodes); i++ {
 		if n.Nodes[i].ID == id {
 			n.Nodes[i].Comment = comment
+			n.Nodes[i].Status = status
 		}
 	}
 

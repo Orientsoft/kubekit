@@ -107,19 +107,19 @@ $(document).ready(function () {
         })
         .then(function (response) {
           if (response.data.success) {
-            toastr.success('创建批量部署任务!');
+            toastr.success('成功添加节点!');
             $("#close-modal").trigger("click");
             //Refresh page
             setTimeout(function () {
               location.reload();
             }, 2000);
           } else {
-            toastr.error('请求发生错误, 无法创建批量部署任务! <br/>' + response.data.message);
+            toastr.error('请求发生错误, 无法添加节点! <br/>' + response.data.message);
           }
         })
         .catch(function (error) {
           console.log(error);
-          toastr.error('请求发生错误, 无法创建批量部署任务!');
+          toastr.error('请求发生错误, 无法添加节点!');
         });
     }
   });
@@ -132,7 +132,7 @@ function refreshNode(nodeId) {
 function removeNode(nodeId) {
 
   console.log('Remove node:' + nodeId);
-  axios.put("/node/" + nodeId + "/remove")
+  axios.put("/node/remove/" + nodeId)
     .then((response) => {
       if (response.data.success) {
         toastr.success('成功移除节点!');

@@ -4,18 +4,17 @@ import (
 	"fmt"
 	"kubekit/models"
 	"net"
-	"os"
 	"time"
 
 	"golang.org/x/crypto/ssh"
 )
 
 func ExecuteCmd(node *models.Node, cmd string) {
-	session, err := connect("root", node.Password, node.IP, node.Port)
+	session, err := Connect("root", node.Password, node.IP, node.Port)
 
 	if err != nil {
 		fmt.Println("err:", err.Error())
-		os.Exit(1)
+		fmt.Println("Cannot connect node:", node.IP)
 	}
 
 	defer session.Close()
@@ -23,7 +22,7 @@ func ExecuteCmd(node *models.Node, cmd string) {
 	//session.Run("curl -L http://192.168.0.80:8000/test.sh | bash -s master>install.log  2>&1 &")
 }
 
-func connect(user, password, host string, port int) (*ssh.Session, error) {
+func Connect(user, password, host string, port int) (*ssh.Session, error) {
 	var (
 		auth         []ssh.AuthMethod
 		addr         string
