@@ -187,8 +187,8 @@ function removeNode(nodeId) {
         toastr.error('移除节点失败!');
       });
   }, function () {}).set('labels', {
-    ok: '好哒',
-    cancel: '人家不要'
+    ok: '确定删除',
+    cancel: '取消'
   });;
 }
 

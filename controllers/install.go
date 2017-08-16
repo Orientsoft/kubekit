@@ -49,6 +49,11 @@ func (router *MainRouter) NodeProgressHandler(c *gin.Context) {
 		return
 	}
 
+	//if node id doesn't exist, just return
+	if _, ok := router.nodeMap[id]; !ok {
+		return
+	}
+
 	var comment string
 	var status int
 
@@ -76,6 +81,7 @@ func (router *MainRouter) NodeProgressHandler(c *gin.Context) {
 	//Update node map in memory
 	node := router.nodeMap[id]
 	node.Comment = comment
+	node.Status = status
 
 	//Broadcast websocket message to all clients
 	if data, err := json.Marshal(node); err == nil {
