@@ -1,4 +1,6 @@
 $(document).ready(function () {
+  connectServer();
+  
   selNodes = [];
 
   if (selNodes.length === 0) {
@@ -203,4 +205,37 @@ function batchInstall() {
       console.log(error);
       toastr.error('请求发生错误, 无法创建批量部署任务!');
     });
+}
+
+
+function connectServer()
+{
+	var sock = null;
+    var wsuri = "ws://" + location.host + "/ws";
+
+	try
+	{
+		sock = new WebSocket(wsuri);
+	}catch (e) {
+	}
+
+	sock.onopen = function() {
+		console.log("connected to " + wsuri);
+	};
+
+	sock.onerror = function(e) {
+		console.log(" error from connect " + e);
+	};
+
+	sock.onclose = function(e) {
+		console.log("connection closed (" + e.code + ")");
+	};
+
+	sock.onmessage = function(e) {
+		console.log("message received: " + e.data);
+
+		var data = $.parseJSON(e.data);
+        $('#status-'+ data.id).html(parseStatus(data.status));
+        $('#comment-'+ data.id).text(data.comment);
+	};
 }

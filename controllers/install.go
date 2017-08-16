@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"encoding/json"
 	"fmt"
 	"kubekit/models"
 	"kubekit/utils"
@@ -71,7 +72,13 @@ func (router *MainRouter) NodeProgressHandler(c *gin.Context) {
 
 	//Update node status
 	router.nodeList.UpdateNodeStatus(id, comment, status)
+
 	//Update node map in memory
 	node := router.nodeMap[id]
 	node.Comment = comment
+
+	//Broadcast websocket message to all clients
+	if data, err := json.Marshal(node); err == nil {
+		sendMessage(data)
+	}
 }

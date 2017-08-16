@@ -41,7 +41,9 @@ func (self *MainRouter) Initialize(r *gin.Engine) {
 	self.router = r
 	self.router.GET("/", self.IndexHandler)
 
-	//self.router.GET("/ws", )
+	self.router.GET("/ws", func(c *gin.Context) {
+		self.WSHandler(c.Writer, c.Request)
+	})
 
 	//Node operations
 	self.router.GET("/node/list", self.ListNodesHandler)
