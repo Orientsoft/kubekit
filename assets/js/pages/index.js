@@ -1,6 +1,6 @@
 $(document).ready(function () {
   connectServer();
-  
+
   selNodes = [];
 
   if (selNodes.length === 0) {
@@ -154,8 +154,8 @@ function refreshNode(nodeId) {
       if (response.data.success) {
         toastr.success('成功更新节点!');
         console.log(response.data.data);
-        $('#status-'+ response.data.data.id).html(parseStatus(response.data.data.status));
-        $('#comment-'+ response.data.data.id).text(response.data.data.comment);
+        $('#status-' + response.data.data.id).html(parseStatus(response.data.data.status));
+        $('#comment-' + response.data.data.id).text(response.data.data.comment);
       } else {
         toastr.error('更新节点失败!');
       }
@@ -168,21 +168,28 @@ function refreshNode(nodeId) {
 function removeNode(nodeId) {
 
   console.log('Remove node:' + nodeId);
-  axios.put("/node/remove/" + nodeId)
-    .then((response) => {
-      if (response.data.success) {
-        toastr.success('成功移除节点!');
-        //Refresh page
-        setTimeout(function () {
-          location.reload();
-        }, 2000);
-      } else {
+  nodeName = $('#name-' + nodeId).text();
+
+  alertify.confirm('移除节点', '是否确认移除节点 <strong>' + nodeName + '</strong> ?', function () {
+    axios.put("/node/remove/" + nodeId)
+      .then((response) => {
+        if (response.data.success) {
+          toastr.success('成功移除节点!');
+          //Refresh page
+          setTimeout(function () {
+            location.reload();
+          }, 2000);
+        } else {
+          toastr.error('移除节点失败!');
+        }
+      })
+      .catch((error) => {
         toastr.error('移除节点失败!');
-      }
-    })
-    .catch((error) => {
-      toastr.error('移除节点失败!');
-    });
+      });
+  }, function () {}).set('labels', {
+    ok: '好哒',
+    cancel: '人家不要'
+  });;
 }
 
 function batchInstall() {
@@ -208,34 +215,31 @@ function batchInstall() {
 }
 
 
-function connectServer()
-{
-	var sock = null;
-    var wsuri = "ws://" + location.host + "/ws";
+function connectServer() {
+  var sock = null;
+  var wsuri = "ws://" + location.host + "/ws";
 
-	try
-	{
-		sock = new WebSocket(wsuri);
-	}catch (e) {
-	}
+  try {
+    sock = new WebSocket(wsuri);
+  } catch (e) {}
 
-	sock.onopen = function() {
-		console.log("connected to " + wsuri);
-	};
+  sock.onopen = function () {
+    console.log("connected to " + wsuri);
+  };
 
-	sock.onerror = function(e) {
-		console.log(" error from connect " + e);
-	};
+  sock.onerror = function (e) {
+    console.log(" error from connect " + e);
+  };
 
-	sock.onclose = function(e) {
-		console.log("connection closed (" + e.code + ")");
-	};
+  sock.onclose = function (e) {
+    console.log("connection closed (" + e.code + ")");
+  };
 
-	sock.onmessage = function(e) {
-		console.log("message received: " + e.data);
+  sock.onmessage = function (e) {
+    console.log("message received: " + e.data);
 
-		var data = $.parseJSON(e.data);
-        $('#status-'+ data.id).html(parseStatus(data.status));
-        $('#comment-'+ data.id).text(data.comment);
-	};
+    var data = $.parseJSON(e.data);
+    $('#status-' + data.id).html(parseStatus(data.status));
+    $('#comment-' + data.id).text(data.comment);
+  };
 }

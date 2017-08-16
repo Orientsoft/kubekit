@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	installCmd = "curl -L http://%s:8000/node.sh | bash -s %s %s --token=%s %s:6443>install.log 2>&1 &"
+	installCmd = "curl -L http://%s:8000/test.sh | bash -s %s %s --token=%s %s:6443>install.log 2>&1 &"
 )
 
 func (router *MainRouter) InstallNodeHandler(c *gin.Context) {

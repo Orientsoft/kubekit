@@ -25,6 +25,8 @@
 	<link href="assets/libs/jquery-icheck/skins/all.css" rel="stylesheet" />
 
 	<link href="assets/libs/toastr/toastr.min.css" rel="stylesheet" />
+	<link href="assets/libs/alertifyjs/css/alertify.min.css" rel="stylesheet" />
+	<link href="assets/libs/alertifyjs/css/themes/default.min.css" rel="stylesheet" />
 	<!-- Code Highlighter for Demo -->
 	<link href="assets/libs/prettify/github.css" rel="stylesheet" />
 
@@ -193,7 +195,7 @@
 													{{ if eq .Status 0 }}
 													<input id="{{ .ID }}" type="checkbox" class="rows-check"> {{ end }}
 												</td>
-												<td><strong>{{ .Name }}</strong></td>
+												<td id="name-{{ .ID }}"><strong>{{ .Name }}</strong></td>
 												<td>{{ .IP }}</td>
 												<td>{{ .Port }}</td>
 												<td>{{ .Password }}</td>
@@ -282,6 +284,7 @@
 
 	<!-- notify library -->
 	<script src="assets/libs/toastr/toastr.min.js"></script>
+	<script src="assets/libs/alertifyjs/alertify.min.js"></script>
 
 	<!-- Demo Specific JS Libraries -->
 	<script src="assets/libs/prettify/prettify.js"></script>
