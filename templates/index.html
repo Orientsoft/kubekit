@@ -208,7 +208,7 @@
 													<span class="label label-warning">无法连接</span> {{ else if eq .Status 4}}
 													<span class="label label-error">部署失败</span> {{ end }}
 												</td>
-												<td id="comment-{{ .ID }}">{{ .Comment }}</td>
+												<td id="comment-{{ .ID }}">{{ if eq .Status 1}}<img id="loader" height="24" src="/assets/img/loader.svg" />{{ end }} {{ .Comment }}</td>
 												<td>
 													<div class="btn-group btn-group-xs">
 														<a data-toggle="tooltip" title="刷新" class="btn btn-default" onclick="refreshNode('{{ .ID }}')"><i class="fa fa-refresh"></i></a>

@@ -155,7 +155,7 @@ function refreshNode(nodeId) {
         toastr.success('成功更新节点!');
         console.log(response.data.data);
         $('#status-' + response.data.data.id).html(parseStatus(response.data.data.status));
-        $('#comment-' + response.data.data.id).text(response.data.data.comment);
+        $('#comment-' + response.data.data.id).html('<img id="loader" height="24" src="/assets/img/loader.svg" /> ' + response.data.data.comment);
       } else {
         toastr.error('更新节点失败!');
       }
@@ -240,6 +240,11 @@ function connectServer() {
 
     var data = $.parseJSON(e.data);
     $('#status-' + data.id).html(parseStatus(data.status));
-    $('#comment-' + data.id).text(data.comment);
+
+    if (data.status === 1) {
+      $('#comment-' + data.id).html('<img id="loader" height="24" src="/assets/img/loader.svg" /> ' + data.comment);
+    } else {
+      $('#comment-' + data.id).text(data.comment);
+    }
   };
 }
