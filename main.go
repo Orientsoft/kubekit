@@ -33,7 +33,7 @@ func main() {
 			Name:      "init",
 			Aliases:   []string{"i"},
 			Usage:     "Initialize current server with Docker engine & Kubernetes master.",
-			ArgsUsage: "[Kubernetes master IP]",
+			ArgsUsage: "[Kubernetes master IP] [File server port] [Toolkit server port]",
 			Action: func(c *cli.Context) error {
 
 				masterIP := c.Args().Get(0)
@@ -46,7 +46,10 @@ func main() {
 				color.Blue("Initialization process started, with kubernetes master IP: %s\r\n", masterIP)
 				utils.SaveMasterIP(masterIP)
 
-				srv := utils.StartServer()
+				filePort := getServerPort(c, 1)
+				toolkitPort := getServerPort(c, 2)
+
+				srv := utils.StartServer(filePort)
 				defer srv.Shutdown(context.Background())
 
 				if !utils.SetupDocker() {
@@ -56,25 +59,54 @@ func main() {
 
 				if utils.SetupMaster() {
 					// Launch toolkit server
-					controllers.StartToolkitServer()
+					controllers.StartToolkitServer(toolkitPort)
 				}
 
 				return nil
 			},
 		},
 		{
-			Name:    "server",
-			Aliases: []string{"s"},
-			Usage:   "Start kubekit toolkit server.",
+			Name:      "server",
+			Aliases:   []string{"s"},
+			Usage:     "Start kubekit toolkit server.",
+			ArgsUsage: "[File server port] [Toolkit server port]",
 			Action: func(c *cli.Context) error {
-				srv := utils.StartServer()
+				filePort := getServerPort(c, 0)
+				toolkitPort := getServerPort(c, 1)
+
+				srv := utils.StartServer(filePort)
 				defer srv.Shutdown(context.Background())
 				// Launch toolkit server only
-				controllers.StartToolkitServer()
+				controllers.StartToolkitServer(toolkitPort)
 				return nil
 			},
 		},
 	}
 
 	app.Run(os.Args)
+}
+
+func getServerPort(c *cli.Context, argPos int) string {
+	var port string
+
+	if len(c.Args().Get(argPos)) > 0 {
+		if utils.IsValidPort(c.Args().Get(argPos)) {
+			port = ":" + c.Args().Get(argPos)
+		} else {
+			if argPos == 1 {
+				color.Red("%sPlease input a valid file server port!", utils.CrossSymbol)
+			} else if argPos == 2 {
+				color.Red("%sPlease input a valid toolkit server port!", utils.CrossSymbol)
+			}
+			os.Exit(1)
+		}
+	} else {
+		if argPos == 1 {
+			port = ":8000"
+		} else if argPos == 2 {
+			port = ":9000"
+		}
+	}
+
+	return port
 }

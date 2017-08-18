@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"fmt"
 	"kubekit/models"
 	"kubekit/utils"
 
@@ -14,17 +15,17 @@ type MainRouter struct {
 	nodeMap  map[string]*models.Node
 }
 
-func StartToolkitServer() {
+func StartToolkitServer(toolkitPort string) {
 	r := gin.Default()
 
 	r.Static("/assets", "./assets")
 	r.LoadHTMLGlob("templates/*")
 
 	mainRouter := &MainRouter{}
-	mainRouter.Initialize(r)
+	mainRouter.Initialize(r, toolkitPort)
 }
 
-func (self *MainRouter) Initialize(r *gin.Engine) {
+func (self *MainRouter) Initialize(r *gin.Engine, toolkitPort string) {
 
 	//Initialize node list
 	self.nodeList = new(models.NodeList)
@@ -55,6 +56,6 @@ func (self *MainRouter) Initialize(r *gin.Engine) {
 	self.router.POST("/install", self.InstallNodeHandler)
 	self.router.GET("/install/progress/:id/:step", self.NodeProgressHandler)
 
-	color.Green("\r\n%sToolkit server is listening at: 0.0.0.0:9000", utils.CheckSymbol)
-	self.router.Run(":9000")
+	color.Green(fmt.Sprintf("\r\n%sToolkit server is listening at: 0.0.0.0%s", utils.CheckSymbol, toolkitPort))
+	self.router.Run(toolkitPort)
 }

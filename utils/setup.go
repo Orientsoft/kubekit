@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"fmt"
 	"io"
 	"io/ioutil"
 	"log"
@@ -8,6 +9,7 @@ import (
 	"os"
 	"os/exec"
 	"regexp"
+	"strconv"
 	"strings"
 	"syscall"
 
@@ -18,10 +20,10 @@ var (
 	srv *http.Server
 )
 
-func StartServer() *http.Server {
-	srv = &http.Server{Addr: ":8000"}
+func StartServer(filePort string) *http.Server {
+	srv = &http.Server{Addr: filePort}
 	http.Handle("/", http.FileServer(http.Dir("./package")))
-	color.Green("\r\n%sHTTP file server listening at: 0.0.0.0:8000\r\n\r\n", CheckSymbol)
+	color.Green(fmt.Sprintf("\r\n%sHTTP file server listening at: 0.0.0.0%s\r\n\r\n", CheckSymbol, filePort))
 
 	go func() {
 		if err := srv.ListenAndServe(); err != nil {
@@ -114,6 +116,16 @@ func GetToken() string {
 	}
 
 	return strings.Replace(string(content), "\n", "", -1)
+}
+
+func IsValidPort(port string) bool {
+	_, err := strconv.Atoi(port)
+
+	if err != nil {
+		return false
+	}
+
+	return true
 }
 
 func saveLog(stdout io.ReadCloser, saveToken bool) {
