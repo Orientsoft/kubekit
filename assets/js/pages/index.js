@@ -155,7 +155,12 @@ function refreshNode(nodeId) {
         toastr.success('成功更新节点!');
         console.log(response.data.data);
         $('#status-' + response.data.data.id).html(parseStatus(response.data.data.status));
-        $('#comment-' + response.data.data.id).html('<img id="loader" height="24" src="/assets/img/loader.svg" /> ' + response.data.data.comment);
+
+        if (response.data.data.status === 1) {
+          $('#comment-' + response.data.data.id).html('<img id="loader" height="24" src="/assets/img/loader.svg" /> ' + response.data.data.comment);
+        } else {
+          $('#comment-' + response.data.data.id).text(response.data.data.comment);
+        }
       } else {
         toastr.error('更新节点失败!');
       }
@@ -215,7 +220,7 @@ function batchInstall() {
 }
 
 function toggleDashboard() {
-  window.open('http://'+ location.hostname + ":31234");
+  window.open('http://' + location.hostname + ":31234");
 }
 
 function connectServer() {
