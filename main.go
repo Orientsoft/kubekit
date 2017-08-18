@@ -11,6 +11,11 @@ import (
 	cli "gopkg.in/urfave/cli.v1"
 )
 
+const (
+	FilePort = iota
+	ToolkitPort
+)
+
 func initialize() {
 	//Remove the install log file
 	os.Remove("install.log")
@@ -46,8 +51,8 @@ func main() {
 				color.Blue("Initialization process started, with kubernetes master IP: %s\r\n", masterIP)
 				utils.SaveMasterIP(masterIP)
 
-				filePort := getServerPort(c, 1)
-				toolkitPort := getServerPort(c, 2)
+				filePort := getServerPort(c, FilePort, 1)
+				toolkitPort := getServerPort(c, ToolkitPort, 2)
 
 				srv := utils.StartServer(filePort)
 				defer srv.Shutdown(context.Background())
@@ -71,8 +76,8 @@ func main() {
 			Usage:     "Start kubekit toolkit server.",
 			ArgsUsage: "[File server port] [Toolkit server port]",
 			Action: func(c *cli.Context) error {
-				filePort := getServerPort(c, 0)
-				toolkitPort := getServerPort(c, 1)
+				filePort := getServerPort(c, FilePort, 0)
+				toolkitPort := getServerPort(c, ToolkitPort, 1)
 
 				srv := utils.StartServer(filePort)
 				defer srv.Shutdown(context.Background())
@@ -86,24 +91,26 @@ func main() {
 	app.Run(os.Args)
 }
 
-func getServerPort(c *cli.Context, argPos int) string {
+// getServerPort parse and get server port by port type and argument position
+// portType:  1.File server 2.Toolkit server
+func getServerPort(c *cli.Context, portType, argPos int) string {
 	var port string
 
 	if len(c.Args().Get(argPos)) > 0 {
 		if utils.IsValidPort(c.Args().Get(argPos)) {
 			port = ":" + c.Args().Get(argPos)
 		} else {
-			if argPos == 1 {
+			if portType == FilePort {
 				color.Red("%sPlease input a valid file server port!", utils.CrossSymbol)
-			} else if argPos == 2 {
+			} else if portType == ToolkitPort {
 				color.Red("%sPlease input a valid toolkit server port!", utils.CrossSymbol)
 			}
 			os.Exit(1)
 		}
 	} else {
-		if argPos == 1 {
+		if portType == FilePort {
 			port = ":8000"
-		} else if argPos == 2 {
+		} else if portType == ToolkitPort {
 			port = ":9000"
 		}
 	}
