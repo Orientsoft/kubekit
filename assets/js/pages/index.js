@@ -214,6 +214,9 @@ function batchInstall() {
     });
 }
 
+function toggleDashboard() {
+  window.open('http://'+ location.hostname + ":31234");
+}
 
 function connectServer() {
   var sock = null;
