@@ -38,13 +38,13 @@ func main() {
 			Name:      "init",
 			Aliases:   []string{"i"},
 			Usage:     "Initialize current server with Docker engine & Kubernetes master.",
-			ArgsUsage: "[Kubernetes master IP] [File server port] [Toolkit server port]",
+			ArgsUsage: "K8S_MASTER_IP FILE_SERVER_PORT TOOLKIT_SERVER_PORT",
 			Action: func(c *cli.Context) error {
 
 				masterIP := c.Args().Get(0)
 
 				if masterIP == "" {
-					color.Red("Please run kubekit with master IP: kubekit i MASTER_IP")
+					color.Red("Please run kubekit with master IP: kubekit i K8S_MASTER_IP")
 					os.Exit(0)
 				}
 
@@ -74,7 +74,7 @@ func main() {
 			Name:      "server",
 			Aliases:   []string{"s"},
 			Usage:     "Start kubekit toolkit server.",
-			ArgsUsage: "[File server port] [Toolkit server port]",
+			ArgsUsage: "FILE_SERVER_PORT TOOLKIT_SERVER_PORT]",
 			Action: func(c *cli.Context) error {
 				filePort := getServerPort(c, FilePort, 0)
 				toolkitPort := getServerPort(c, ToolkitPort, 1)
