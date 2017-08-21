@@ -7,7 +7,7 @@
 set -x
 set -e
 
-HTTP_SERVER=127.0.0.1:8000
+HTTP_SERVER=""
 
 root=$(id -u)
 if [ "$root" -ne 0 ] ;then
@@ -19,6 +19,18 @@ kube::install_docker()
 {
     echo "KUBEKIT_OUTPUT (1/2) Start to install docker..."
     set +e
+
+    # Install docker-compose
+    which docker-compose > /dev/null 2>&1
+    i=$?
+    set -e
+    if [ $i -ne 0 ]; then
+        curl -L http://$HTTP_SERVER/rpms/docker-compose.tar.gz > /tmp/docker-compose.tar.gz 
+        tar zxf /tmp/docker-compose.tar.gz -C /tmp
+        chmod +x docker-compose
+        mv docker-compose /usr/local/bin/docker-compose
+    fi
+
     which docker > /dev/null 2>&1
     i=$?
     set -e
@@ -48,12 +60,17 @@ kube::config_docker()
     systemctl disable firewalld
     systemctl stop firewalld
 
+    # Import orient CA cert.
+    curl -L http://$HTTP_SERVER/certs/server.crt > /etc/pki/ca-trust/source/anchors/
+    update-ca-trust
+
     echo DOCKER_STORAGE_OPTIONS=\" -s overlay --selinux-enabled=false\" > /etc/sysconfig/docker-storage
     systemctl daemon-reload && systemctl restart docker.service
 }
 
 main()
 {
+    HTTP_SERVER=$1
     kube::install_docker
 }
 

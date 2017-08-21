@@ -21,6 +21,7 @@ set -x
 set -e
 
 HTTP_SERVER=""
+KIT_SERVER=""
 ID=""
 KUBE_REPO_PREFIX=gcr.io/google_containers
 
@@ -37,7 +38,7 @@ kube::install_docker()
     i=$?
     set -e
     if [ $i -ne 0 ]; then
-        curl -L http://$HTTP_SERVER:8000/rpms/docker.tar.gz > /tmp/docker.tar.gz 
+        curl -L http://$HTTP_SERVER/rpms/docker.tar.gz > /tmp/docker.tar.gz 
         tar zxf /tmp/docker.tar.gz -C /tmp
         yum localinstall -y /tmp/docker/*.rpm
         kube::config_docker
@@ -61,6 +62,10 @@ kube::config_docker()
     systemctl disable firewalld
     systemctl stop firewalld
 
+    # Import orient CA cert.
+    curl -L http://$HTTP_SERVER/certs/server.crt > /etc/pki/ca-trust/source/anchors/
+    update-ca-trust
+
     echo DOCKER_STORAGE_OPTIONS=\" -s overlay --selinux-enabled=false\" > /etc/sysconfig/docker-storage
     systemctl daemon-reload && systemctl restart docker.service
 }
@@ -79,7 +84,7 @@ kube::load_images()
     for i in "${!node_images[@]}"; do 
         ret=$(docker images | awk 'NR!=1{print $1"_"$2}' | grep $KUBE_REPO_PREFIX/${node_images[$i]} |  wc -l)
         if [ $ret -lt 1 ];then
-            curl -L http://$HTTP_SERVER:8000/images/${node_images[$i]}.tar > /tmp/k8s/${node_images[$i]}.tar
+            curl -L http://$HTTP_SERVER/images/${node_images[$i]}.tar > /tmp/k8s/${node_images[$i]}.tar
             docker load < /tmp/k8s/${node_images[$i]}.tar
         fi
     done
@@ -94,7 +99,7 @@ kube::install_bin()
     i=$?
     set -e
     if [ $i -ne 0 ]; then
-        curl -L http://$HTTP_SERVER:8000/rpms/k8s.tar.gz > /tmp/k8s.tar.gz
+        curl -L http://$HTTP_SERVER/rpms/k8s.tar.gz > /tmp/k8s.tar.gz
         tar zxf /tmp/k8s.tar.gz -C /tmp
         yum localinstall -y  /tmp/k8s/*.rpm
         rm -rf /tmp/k8s*
@@ -118,25 +123,26 @@ kube::config_firewalld()
 
 kube::node_up()
 {
-    curl http://$HTTP_SERVER:9000/install/progress/$ID/1
+    curl http://$KIT_SERVER/install/progress/$ID/1
     kube::install_docker
 
-    curl http://$HTTP_SERVER:9000/install/progress/$ID/2
+    curl http://$KIT_SERVER/install/progress/$ID/2
     kube::load_images minion
 
-    curl http://$HTTP_SERVER:9000/install/progress/$ID/3
+    curl http://$KIT_SERVER/install/progress/$ID/3
     kube::install_bin
 
-    curl http://$HTTP_SERVER:9000/install/progress/$ID/4
+    curl http://$KIT_SERVER/install/progress/$ID/4
     kube::config_firewalld
 
-    curl http://$HTTP_SERVER:9000/install/progress/$ID/5
+    curl http://$KIT_SERVER/install/progress/$ID/5
     kubeadm join --skip-preflight-checks $@
 }
 
 main()
 {
     HTTP_SERVER=$1
+    KIT_SERVER=$2
     shift
     ID=$1
     shift

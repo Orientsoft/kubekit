@@ -5,6 +5,7 @@ import (
 	"kubekit/controllers"
 	"kubekit/utils"
 	"os"
+	"fmt"
 
 	"github.com/fatih/color"
 
@@ -54,15 +55,17 @@ func main() {
 				filePort := getServerPort(c, FilePort, 1)
 				toolkitPort := getServerPort(c, ToolkitPort, 2)
 
+				masterAddr := fmt.Sprintf("%s:%s", masterIP, filePort)
+
 				srv := utils.StartServer(filePort)
 				defer srv.Shutdown(context.Background())
 
-				if !utils.SetupDocker() {
+				if !utils.SetupDocker(masterAddr) {
 					color.Red("%sProgram terminated...", utils.CrossSymbol)
 					os.Exit(1)
 				}
 
-				if utils.SetupMaster() {
+				if utils.SetupMaster(masterAddr) {
 					// Launch toolkit server
 					controllers.StartToolkitServer(toolkitPort)
 				}

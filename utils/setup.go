@@ -157,11 +157,11 @@ func saveLog(stdout io.ReadCloser, saveToken bool) {
 	}
 }
 
-func SetupDocker() bool {
+func SetupDocker(masterAddr string) bool {
 	color.Blue("Start to install docker engine...\r\n")
 	ch := make(chan int)
 
-	go RunSetup("./package/docker.sh", ch)
+	go RunSetup(fmt.Sprintf("./package/docker.sh %s", masterAddr), ch)
 	if <-ch == 1 {
 		color.Red("\r\n%sFailed to install docker engine...\r\n\r\n", CrossSymbol)
 		return false
@@ -171,11 +171,11 @@ func SetupDocker() bool {
 	return true
 }
 
-func SetupMaster() bool {
+func SetupMaster(masterAddr string) bool {
 	color.Blue("Start to initialize Kubernetes master node...\r\n\r\n")
 	ch := make(chan int)
 
-	go RunSetup("./package/master.sh", ch, "master")
+	go RunSetup(fmt.Sprintf("./package/master.sh %s", masterAddr), ch, "master")
 	if <-ch == 1 {
 		color.Red("\r\n%sFailed to initialize Kubernetes master node...\r\n\r\n", CrossSymbol)
 		return false
