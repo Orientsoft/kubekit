@@ -26,21 +26,24 @@ kube::install_docker()
     set -e
     if [ $i -ne 0 ]; then
         curl -L http://$HTTP_SERVER/rpms/docker-compose.tar.gz > /tmp/docker-compose.tar.gz 
-        tar zxf /tmp/docker-compose.tar.gz -C /tmp
+        cd /tmp && tar zxvf docker-compose.tar.gz
         chmod +x docker-compose
         mv docker-compose /usr/local/bin/docker-compose
     fi
 
+    # Install docker engine
+    set +e
     which docker > /dev/null 2>&1
-    i=$?
+    j=$?
     set -e
-    if [ $i -ne 0 ]; then
+    if [ $j -ne 0 ]; then
         curl -L http://$HTTP_SERVER/rpms/docker.tar.gz > /tmp/docker.tar.gz 
         tar zxf /tmp/docker.tar.gz -C /tmp
         yum localinstall -y /tmp/docker/*.rpm
         echo "KUBEKIT_OUTPUT (2/2) Start to config docker..."
         kube::config_docker
     fi
+
     systemctl enable docker.service && systemctl start docker.service
     echo docker has been installed!
     docker version
@@ -61,11 +64,10 @@ kube::config_docker()
     systemctl stop firewalld
 
     # Import orient CA cert.
-    curl -L http://$HTTP_SERVER/certs/server.crt > /etc/pki/ca-trust/source/anchors/
+    curl -L http://$HTTP_SERVER/certs/ca.crt > /etc/pki/ca-trust/source/anchors/ca.crt
     update-ca-trust
 
     echo DOCKER_STORAGE_OPTIONS=\" -s overlay --selinux-enabled=false\" > /etc/sysconfig/docker-storage
-    systemctl daemon-reload && systemctl restart docker.service
 }
 
 main()
