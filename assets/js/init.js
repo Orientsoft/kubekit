@@ -19,10 +19,6 @@ var changeptype = function(){
     dw = $(document).width();
     dh = $(document).height();
 
-    if(jQuery.browser.mobile === true){
-      	$("body").addClass("mobile").removeClass("fixed-left");
-    }
-
     if(!$("#wrapper").hasClass("forced")){
 	    if(w > 990){
 	    	$("body").removeClass("smallscreen").addClass("widescreen");
@@ -237,25 +233,11 @@ $("body").trigger("resize");
 //SELECT
 $('.selectpicker').selectpicker();
 
-
-//FILE INPUT
-$('input[type=file]').bootstrapFileInput();
-
-
-//DATE PICKER
-$('.datepicker-input').datepicker();
-
-
 //ICHECK
 $('input:not(.ios-switch)').iCheck({
   checkboxClass: 'icheckbox_square-aero',
   radioClass: 'iradio_square-aero',
   increaseArea: '20%' // optional
-});
-
-// IOS7 SWITCH
-$(".ios-switch").each(function(){
-    mySwitch = new Switch(this);
 });
 
 //GALLERY
@@ -292,29 +274,13 @@ var debounce = function(func, wait, immediate) {
 }
 
 function resizeitems(){
-  if($.isArray(resizefunc)){  
-    for (i = 0; i < resizefunc.length; i++) {
-        window[resizefunc[i]]();
-    }
-  }
+  // if($.isArray(resizefunc)){  
+  //   for (i = 0; i < resizefunc.length; i++) {
+  //       window[resizefunc[i]]();
+  //   }
+  // }
 }
 
-function initscrolls(){
-    if(jQuery.browser.mobile !== true){
-	    //SLIM SCROLL
-	    $('.slimscroller').slimscroll({
-	      height: 'auto',
-	      size: "5px"
-	    });
-
-	    $('.slimscrollleft').slimScroll({
-	        height: 'auto',
-	        position: 'left',
-	        size: "5px",
-	        color: '#7A868F'
-	    });
-	}
-}
 function toggle_slimscroll(item){
     if($("#wrapper").hasClass("enlarged")){
       $(item).css("overflow","inherit").parent().css("overflow","inherit");
