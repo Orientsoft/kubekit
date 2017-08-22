@@ -22,7 +22,6 @@ set -e
 
 HTTP_SERVER=""
 KIT_SERVER=""
-MASTER_IP=""
 ID=""
 KUBE_REPO_PREFIX=gcr.io/google_containers
 
@@ -62,13 +61,6 @@ kube::config_docker()
     # net.bridge.bridge-nf-call-iptables = 1
     systemctl disable firewalld
     systemctl stop firewalld
-
-    # Import orient CA cert.
-    curl -L http://$HTTP_SERVER/certs/ca.crt > /etc/pki/ca-trust/source/anchors/kubekit.crt
-    update-ca-trust
-
-    # Import hosts item.
-    echo ${MASTER_IP}" registry.orientsoft.cn" >> /etc/hosts
 
     echo DOCKER_STORAGE_OPTIONS=\" -s overlay --selinux-enabled=false\" > /etc/sysconfig/docker-storage
     systemctl daemon-reload && systemctl restart docker.service
@@ -146,7 +138,6 @@ kube::node_up()
 main()
 {
     HTTP_SERVER=$1
-    MASTER_IP=$(echo $HTTP_SERVER | cut -d ":" -f1)
     KIT_SERVER=$2
     shift
     shift

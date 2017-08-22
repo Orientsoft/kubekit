@@ -8,7 +8,6 @@ set -x
 set -e
 
 HTTP_SERVER=""
-MASTER_IP=""
 
 root=$(id -u)
 if [ "$root" -ne 0 ] ;then
@@ -64,20 +63,12 @@ kube::config_docker()
     systemctl disable firewalld
     systemctl stop firewalld
 
-    # Import orient CA cert.
-    curl -L http://$HTTP_SERVER/certs/ca.crt > /etc/pki/ca-trust/source/anchors/kubekit.crt
-    update-ca-trust
-
-    # Import hosts item.
-    echo ${MASTER_IP}" registry.orientsoft.cn" >> /etc/hosts
-
     echo DOCKER_STORAGE_OPTIONS=\" -s overlay --selinux-enabled=false\" > /etc/sysconfig/docker-storage
 }
 
 main()
 {
     HTTP_SERVER=$1
-    MASTER_IP=$(echo $HTTP_SERVER | cut -d ":" -f1)
 
     kube::install_docker
 }
