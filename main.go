@@ -64,11 +64,6 @@ func main() {
 					os.Exit(1)
 				}
 
-				if !utils.SetupHarbor(masterAddr) {
-					color.Red("%sProgram terminated...", utils.CrossSymbol)
-					os.Exit(1)
-				}
-
 				if utils.SetupMaster(masterAddr) {
 					// Launch toolkit server
 					controllers.StartToolkitServer(filePort, toolkitPort)
