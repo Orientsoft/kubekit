@@ -33,7 +33,7 @@ Kubekit is a deployment toolkit, it provides offline installation solution for k
 
 The Kubekit will install
 * Docker (1.12.6)
-* All the kubernetes components
+* Kubernetes V1.7.2 and all its components
 * Kubernetes dashboard, with default node port:**31234**
 
 # Highlights
