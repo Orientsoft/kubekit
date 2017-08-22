@@ -149,6 +149,7 @@ main()
     MASTER_IP=$(echo $HTTP_SERVER | cut -d ":" -f1)
     KIT_SERVER=$2
     shift
+    shift
 
     ID=$1
     shift
