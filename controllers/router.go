@@ -10,22 +10,27 @@ import (
 )
 
 type MainRouter struct {
-	router   *gin.Engine
-	nodeList *models.NodeList
-	nodeMap  map[string]*models.Node
+	router      *gin.Engine
+	nodeList    *models.NodeList
+	nodeMap     map[string]*models.Node
+	filePort    string
+	toolkitPort string
 }
 
-func StartToolkitServer(toolkitPort string) {
+func StartToolkitServer(filePort, toolkitPort string) {
 	r := gin.Default()
 
 	r.Static("/assets", "./assets")
 	r.LoadHTMLGlob("templates/*")
 
 	mainRouter := &MainRouter{}
-	mainRouter.Initialize(r, toolkitPort)
+	mainRouter.Initialize(r, filePort, toolkitPort)
 }
 
-func (self *MainRouter) Initialize(r *gin.Engine, toolkitPort string) {
+func (self *MainRouter) Initialize(r *gin.Engine, filePort, toolkitPort string) {
+
+	self.filePort = filePort
+	self.toolkitPort = toolkitPort
 
 	//Initialize node list
 	self.nodeList = new(models.NodeList)

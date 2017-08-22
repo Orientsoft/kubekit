@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	installCmd = "curl -L http://%s:8000/test.sh | bash -s %s %s --token=%s %s:6443>install.log 2>&1 &"
+	installCmd = "curl -L http://%s/test.sh | bash -s %s %s --token=%s %s:6443>install.log 2>&1 &"
 )
 
 func (router *MainRouter) InstallNodeHandler(c *gin.Context) {
@@ -33,10 +33,12 @@ func (router *MainRouter) InstallNodeHandler(c *gin.Context) {
 func (router *MainRouter) startInstall(ids []string) {
 	masterIP := utils.GetMasterIP()
 	token := utils.GetToken()
+	masterAddr := fmt.Sprintf("%s:%s", masterIP, router.filePort)
+	kitAddr := fmt.Sprintf("%s:%s", masterIP, router.toolkitPort)
 
 	if masterIP != "" && token != "" {
 		for _, id := range ids {
-			go utils.ExecuteCmd(router.nodeMap[id], fmt.Sprintf(installCmd, masterIP, masterIP, id, token, masterIP))
+			go utils.ExecuteCmd(router.nodeMap[id], fmt.Sprintf(installCmd, masterAddr, masterAddr, kitAddr, id, token, masterIP))
 		}
 	}
 }

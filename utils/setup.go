@@ -171,6 +171,20 @@ func SetupDocker(masterAddr string) bool {
 	return true
 }
 
+func SetupHarbor(masterAddr string) bool {
+	color.Blue("Start to install harbor...\r\n")
+	ch := make(chan int)
+
+	go RunSetup(fmt.Sprintf("./package/harbor.sh %s", masterAddr), ch)
+	if <-ch == 1 {
+		color.Red("\r\n%sFailed to install harbor...\r\n\r\n", CrossSymbol)
+		return false
+	}
+
+	color.Green("\r\n%sHarbor installed...\r\n\r\n", CheckSymbol)
+	return true
+}
+
 func SetupMaster(masterAddr string) bool {
 	color.Blue("Start to initialize Kubernetes master node...\r\n\r\n")
 	ch := make(chan int)

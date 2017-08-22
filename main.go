@@ -2,10 +2,10 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"kubekit/controllers"
 	"kubekit/utils"
 	"os"
-	"fmt"
 
 	"github.com/fatih/color"
 
@@ -65,9 +65,14 @@ func main() {
 					os.Exit(1)
 				}
 
+				if !utils.SetupHarbor(masterAddr) {
+					color.Red("%sProgram terminated...", utils.CrossSymbol)
+					os.Exit(1)
+				}
+
 				if utils.SetupMaster(masterAddr) {
 					// Launch toolkit server
-					controllers.StartToolkitServer(toolkitPort)
+					controllers.StartToolkitServer(filePort, toolkitPort)
 				}
 
 				return nil
@@ -85,7 +90,7 @@ func main() {
 				srv := utils.StartServer(filePort)
 				defer srv.Shutdown(context.Background())
 				// Launch toolkit server only
-				controllers.StartToolkitServer(toolkitPort)
+				controllers.StartToolkitServer(filePort, toolkitPort)
 				return nil
 			},
 		},
