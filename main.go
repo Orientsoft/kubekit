@@ -75,8 +75,8 @@ func main() {
 		{
 			Name:      "server",
 			Aliases:   []string{"s"},
-			Usage:     "Start kubekit toolkit server.",
-			ArgsUsage: "FILE_SERVER_PORT TOOLKIT_SERVER_PORT]",
+			Usage:     "Start kubekit file server & toolkit server.",
+			ArgsUsage: "FILE_SERVER_PORT TOOLKIT_SERVER_PORT",
 			Action: func(c *cli.Context) error {
 				filePort := getServerPort(c, FilePort, 0)
 				toolkitPort := getServerPort(c, ToolkitPort, 1)
