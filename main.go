@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"kubekit/controllers"
 	"kubekit/utils"
 	"os"
@@ -55,7 +54,7 @@ func main() {
 				filePort := getServerPort(c, FilePort, 1)
 				toolkitPort := getServerPort(c, ToolkitPort, 2)
 
-				masterAddr := fmt.Sprintf("%s:%s", masterIP, filePort)
+				masterAddr := masterIP + filePort
 
 				srv := utils.StartServer(filePort)
 				defer srv.Shutdown(context.Background())

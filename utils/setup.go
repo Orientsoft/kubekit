@@ -161,7 +161,7 @@ func SetupDocker(masterAddr string) bool {
 	color.Blue("Start to install docker engine...\r\n")
 	ch := make(chan int)
 
-	go RunSetup(fmt.Sprintf("./package/docker.sh %s", masterAddr), ch)
+	go RunSetup("./package/docker.sh", ch, masterAddr)
 	if <-ch == 1 {
 		color.Red("\r\n%sFailed to install docker engine...\r\n\r\n", CrossSymbol)
 		return false
@@ -175,7 +175,7 @@ func SetupHarbor(masterAddr string) bool {
 	color.Blue("Start to install harbor...\r\n")
 	ch := make(chan int)
 
-	go RunSetup(fmt.Sprintf("./package/harbor.sh %s", masterAddr), ch)
+	go RunSetup("./package/harbor.sh", ch, masterAddr)
 	if <-ch == 1 {
 		color.Red("\r\n%sFailed to install harbor...\r\n\r\n", CrossSymbol)
 		return false
@@ -189,7 +189,7 @@ func SetupMaster(masterAddr string) bool {
 	color.Blue("Start to initialize Kubernetes master node...\r\n\r\n")
 	ch := make(chan int)
 
-	go RunSetup(fmt.Sprintf("./package/master.sh %s", masterAddr), ch, "master")
+	go RunSetup("./package/master.sh", ch, masterAddr)
 	if <-ch == 1 {
 		color.Red("\r\n%sFailed to initialize Kubernetes master node...\r\n\r\n", CrossSymbol)
 		return false

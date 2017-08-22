@@ -7,7 +7,7 @@
 set -x
 set -e
 
-HTTP_SERVER=192.168.0.79:8000
+HTTP_SERVER=“”
 
 root=$(id -u)
 if [ "$root" -ne 0 ] ;then
@@ -20,15 +20,14 @@ kube::install_harbor()
     echo "KUBEKIT_OUTPUT (1/2) Start to install harbor..."
     set +e
 
-    curl -L http://$HTTP_SERVER/rpms/harbor-offline-installer-v1.1.2.tgz > /tmp/harbor-offline-installer-v1.1.2.tgz
-    tar zxf /tmp/harbor-offline-installer-v1.1.2.tgz
-    mv /tmp/harbor /root
+    curl -L http://$HTTP_SERVER/rpms/harbor-offline-installer-v1.1.2.tgz > /root/harbor-offline-installer-v1.1.2.tgz
+    cd /root && tar zxvf harbor-offline-installer-v1.1.2.tgz
 
     echo "KUBEKIT_OUTPUT (2/2) Start to config harbor..."
     kube::config_harbor
 
     echo Harbor has been installed!
-    rm -rf /tmp/harbor-offline-installer-v1.1.2.tgz
+    rm -rf /root/harbor-offline-installer-v1.1.2.tgz
 }
 
 kube::config_harbor()
@@ -51,11 +50,14 @@ kube::config_harbor()
     echo 'crt_organizationalunit = Orient' >> /root/harbor/harbor.cfg
     echo 'crt_commonname = registry.orientsoft.cn' >> /root/harbor/harbor.cfg
     echo 'crt_email = info@orientsoft.cn' >> /root/harbor/harbor.cfg
+
+    cd /root/harbor
+    ./install.sh
 }
 
 main()
 {
-    #HTTP_SERVER=$1
+    HTTP_SERVER=$1
     kube::install_harbor
 }
 
