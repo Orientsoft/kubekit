@@ -66,6 +66,8 @@ The Kubekit will install
 
 7. Access the Web UI Portal with ```http://MASTER_IP:9000``` and initialize other Kubernetes worker nodes through it.
 
+8. __Don't forget to reload bash settings before using kubectl: ```source ~/.bashrc``` __
+
 # User Manual
 
 For detailed usage, please refer to [《Kubekit安装与使用手册》](https://github.com/Orientsoft/kubekit/wiki/Kubekit%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C)
