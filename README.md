@@ -70,7 +70,7 @@ The Kubekit will install
 
 # User Manual
 
-For detailed usage, please refer to [《Kubekit安装与使用手册》](https://github.com/Orientsoft/kubekit/wiki/Kubekit%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C)
+For detailed usage, please refer to [《Kubekit安装与使用手册》](https://github.com/Orientsoft/kubekit/wiki/Kubekit-%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C)
 
 # CLI Commands
 
