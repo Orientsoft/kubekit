@@ -23,6 +23,7 @@ A Kubernetes deployment toolkit for offline environment.
 - [Highlights](#highlights)
 - [Supported OS](#supported-os)
 - [Quick Start](#quick-start)
+- [User Manual](#user-manual)
 - [CLI Commands](#cli-commands)
 - [Web UI Portal](#web-ui-portal)
 - [License](#license)
@@ -64,6 +65,10 @@ The Kubekit will install
 6. Take a cup of coffee and wait until master node is ready. And also, a Web UI portal will be available with default port: 9000.
 
 7. Access the Web UI Portal with ```http://MASTER_IP:9000``` and initialize other Kubernetes worker nodes through it.
+
+# User Manual
+
+For detailed usage, please refer to [《Kubekit安装与使用手册》](https://github.com/Orientsoft/kubekit/wiki/Kubekit%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BD%BF%E7%94%A8%E6%89%8B%E5%86%8C)
 
 # CLI Commands
 
