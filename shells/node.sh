@@ -133,6 +133,9 @@ kube::node_up()
 
     curl http://$KIT_SERVER/install/progress/$ID/5
     kubeadm join --skip-preflight-checks $@
+    
+    export KUBECONFIG=/etc/kubernetes/kubelet.conf
+    echo "export KUBECONFIG=/etc/kubernetes/kubelet.conf" >> ~/.bashrc
 }
 
 main()
