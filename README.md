@@ -48,6 +48,11 @@ The Kubekit will install
 * CentOS release 7.3.1611 (**Already tested & verified**)
 * Ubuntu 16.04 LTS (Planned to support)
 
+# Requirements
+
+* Make sure you have root privileges for all the servers.
+* The firewalls are not managed, you'll need to implement your own rules the way you used to. in order to avoid any issue during deployment you should disable your firewall.
+
 # Quick Start
 
 1. Download latest release of kubekit from [GitHub](https://github.com/Orientsoft/kubekit/releases) it, extract it to ```./kubekit/```
