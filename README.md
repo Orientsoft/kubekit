@@ -22,6 +22,7 @@ A Kubernetes deployment toolkit for offline environment.
 - [About](#about)
 - [Highlights](#highlights)
 - [Supported OS](#supported-os)
+- [Requirements](#requirements)
 - [Quick Start](#quick-start)
 - [User Manual](#user-manual)
 - [CLI Commands](#cli-commands)
