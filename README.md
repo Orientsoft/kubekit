@@ -10,7 +10,7 @@
 A Kubernetes deployment toolkit for offline environment.
 ---
 
-[![Go][1]][2] [![Kubernetes][3]][4] [![Release][5]][6]
+[![Go][1]][2] [![Kubernetes][3]][4] [![Build][7]][8] [![Release][5]][6]
 
 [1]: https://img.shields.io/badge/go-v1.8.3-green.svg
 [2]: https://golang.org
@@ -18,6 +18,8 @@ A Kubernetes deployment toolkit for offline environment.
 [4]: https://kubernetes.io/
 [5]: https://img.shields.io/badge/release-v0.1-blue.svg
 [6]: https://github.com/Orientsoft/kubekit/releases
+[7]: https://travis-ci.org/Orientsoft/kubekit.svg?branch=master
+[8]: https://travis-ci.org/Orientsoft/kubekit
 
 - [About](#about)
 - [Highlights](#highlights)
