@@ -3,9 +3,10 @@ package controllers
 import (
 	"encoding/json"
 	"fmt"
-	"kubekit/models"
-	"kubekit/utils"
 	"net/http"
+
+	"github.com/Orientsoft/kubekit/models"
+	"github.com/Orientsoft/kubekit/utils"
 
 	"github.com/gin-gonic/gin"
 )

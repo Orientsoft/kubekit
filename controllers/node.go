@@ -1,10 +1,11 @@
 package controllers
 
 import (
-	"kubekit/models"
-	"kubekit/utils"
 	"net/http"
 	"time"
+
+	"github.com/Orientsoft/kubekit/models"
+	"github.com/Orientsoft/kubekit/utils"
 
 	"github.com/gin-gonic/gin"
 )

@@ -2,8 +2,9 @@ package controllers
 
 import (
 	"fmt"
-	"kubekit/models"
-	"kubekit/utils"
+
+	"github.com/Orientsoft/kubekit/models"
+	"github.com/Orientsoft/kubekit/utils"
 
 	"github.com/fatih/color"
 	"github.com/gin-gonic/gin"

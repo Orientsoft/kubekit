@@ -2,10 +2,11 @@ package utils
 
 import (
 	"fmt"
-	"kubekit/models"
 	"net"
 	"os"
 	"time"
+
+	"github.com/Orientsoft/kubekit/models"
 
 	"golang.org/x/crypto/ssh"
 )

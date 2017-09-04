@@ -2,9 +2,11 @@ package main
 
 import (
 	"context"
-	"kubekit/controllers"
-	"kubekit/utils"
 	"os"
+
+	"github.com/Orientsoft/kubekit/utils"
+
+	"github.com/Orientsoft/kubekit/controllers"
 
 	"github.com/fatih/color"
 
