@@ -5,3 +5,4 @@ package/*
 .DS_Store
 .nodes
 .k8s-token
+*.gz
