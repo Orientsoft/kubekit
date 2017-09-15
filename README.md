@@ -62,7 +62,12 @@ The Kubekit will install
 
 2. Download all the offline package from [百度网盘](https://pan.baidu.com/s/1kULhxzx) with password ```531v``` and with patience...
 
-3. Extract all the offline packages to ```./kubekit/packages```
+3. Extract all the offline packages to ```./kubekit/package``` and make *.sh executable:
+
+```bash
+cd package
+chmod +x *.sh
+```
 
 4. COPY ./kubekit to a node which is selected to be Kubernetes master.
 
