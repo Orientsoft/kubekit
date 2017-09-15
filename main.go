@@ -16,12 +16,13 @@ import (
 const (
 	FilePort = iota
 	ToolkitPort
+	VERSION = "0.1.1"
 )
 
 func initialize() {
 	//Remove the install log file
 	os.Remove("install.log")
-	utils.DisplayLogo()
+	utils.DisplayLogo(VERSION)
 }
 
 func main() {
@@ -30,7 +31,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "KubeKit"
 	app.Usage = "A toolkit for Kubernetes & apps offline deployment."
-	app.Version = "0.1.0"
+	app.Version = VERSION
 	app.Action = func(c *cli.Context) error {
 		return nil
 	}

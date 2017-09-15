@@ -2,7 +2,7 @@ package utils
 
 import "github.com/fatih/color"
 
-const (
+var (
 	logo = `
  ___  __        ___  ___      ________      _______       ___  __        ___      _________   
 |\  \|\  \     |\  \|\  \    |\   __  \    |\  ___ \     |\  \|\  \     |\  \    |\___   ___\ 
@@ -13,7 +13,7 @@ const (
     \|__| \|__|    \|_______|    \|_______|    \|_______|    \|__| \|__|    \|__|        \|__|
 
 
-KubeKit V0.1.0 ⓒ  OrientSoft 2017
+KubeKit V%s ⓒ  OrientSoft 2017
 
 `
 
@@ -21,6 +21,6 @@ KubeKit V0.1.0 ⓒ  OrientSoft 2017
 	CrossSymbol = "\u2716 "
 )
 
-func DisplayLogo() {
-	color.Green(logo)
+func DisplayLogo(version string) {
+	color.Green(logo, version)
 }
