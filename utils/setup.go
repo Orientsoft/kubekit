@@ -181,7 +181,17 @@ func SetupMaster(masterAddr string) bool {
 		return false
 	}
 
+	//Copy k8s ca cert to download directory
+	copy("/etc/kubernetes/pki/ca.crt", "./package/certs/k8s-ca.crt")
+
 	color.Green("\r\n%sKubernetes master node initialized...\r\n\r\n", CheckSymbol)
 	color.Blue("Remember to reload shell with: source ~/.bashrc before using kubectl!\r\n")
 	return true
+}
+
+func copy(src string, dst string) {
+	// Read all content of src to data
+	data, _ := ioutil.ReadFile(src)
+	// Write data to dst
+	ioutil.WriteFile(dst, data, 0644)
 }

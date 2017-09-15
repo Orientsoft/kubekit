@@ -61,6 +61,10 @@ kube::config_docker()
     # net.bridge.bridge-nf-call-iptables = 1
     systemctl disable firewalld
     systemctl stop firewalld
+    
+    # Import orient CA cert.
+    curl -L http://$HTTP_SERVER/certs/k8s-ca.crt > /etc/pki/ca-trust/source/anchors/k8s-ca.crt
+    update-ca-trust
 
     echo DOCKER_STORAGE_OPTIONS=\" -s overlay --selinux-enabled=false\" > /etc/sysconfig/docker-storage
     systemctl daemon-reload && systemctl restart docker.service
