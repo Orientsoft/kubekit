@@ -52,8 +52,7 @@ kube::install_docker()
 
 kube::config_docker()
 {
-    setenforce 0
-    sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+    sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 
     #sysctl -w net.bridge.bridge-nf-call-iptables=1
     #sysctl -w net.bridge.bridge-nf-call-ip6tables=1

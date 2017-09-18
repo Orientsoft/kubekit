@@ -51,16 +51,22 @@ kube::install_docker()
 
 kube::config_docker()
 {
-    setenforce 0
-    sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/selinux/config
+    sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 
     #sysctl -w net.bridge.bridge-nf-call-iptables=1
     #sysctl -w net.bridge.bridge-nf-call-ip6tables=1
     # /etc/sysctl.conf 
     # net.bridge.bridge-nf-call-ip6tables = 1
     # net.bridge.bridge-nf-call-iptables = 1
+    set +e
+    which firewalld
+    j=$?
+    set -e
+
+    if [ $j -eq 0 ]; then
     systemctl disable firewalld
     systemctl stop firewalld
+    fi
     
     # Import orient CA cert.
     curl -L http://$HTTP_SERVER/certs/k8s-ca.crt > /etc/pki/ca-trust/source/anchors/k8s-ca.crt
