@@ -60,8 +60,16 @@ kube::config_docker()
     # /etc/sysctl.conf 
     # net.bridge.bridge-nf-call-ip6tables = 1
     # net.bridge.bridge-nf-call-iptables = 1
+    
+    set +e
+    which firewalld
+    j=$?
+    set -e
+
+    if [ $j -eq 0 ]; then
     systemctl disable firewalld
     systemctl stop firewalld
+    fi
 
     echo DOCKER_STORAGE_OPTIONS=\" -s overlay --selinux-enabled=false\" > /etc/sysconfig/docker-storage
 }
