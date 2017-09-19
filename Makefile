@@ -23,5 +23,7 @@ release:
 # Cleans our projects: deletes binaries
 clean:
 		go clean
+		rm -rf *.gz
+		rm -rf kubekit-release
 
 .PHONY:  clean build
