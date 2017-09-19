@@ -6,3 +6,4 @@ package/*
 .nodes
 .k8s-token
 *.gz
+kubekit-release/*

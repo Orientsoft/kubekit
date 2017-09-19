@@ -10,10 +10,16 @@ release:
 		# Clean
 		go clean
 		rm -rf *.gz
+		rm -rf kubekit-release
 		# Build for linux
-		go clean
+		mkdir kubekit-release
 		CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build
-		tar czvf ${BINARY}-linux64-${VERSION}.tar.gz ./${BINARY}
+		mv kubekit ./kubekit-release
+		cp -r ./assets ./kubekit-release
+		cp -r ./templates ./kubekit-release
+		cp README.md ./kubekit-release
+		cp LICENSE ./kubekit-release
+		tar czvf ${BINARY}-linux64-${VERSION}.tar.gz ./kubekit-release
 # Cleans our projects: deletes binaries
 clean:
 		go clean
