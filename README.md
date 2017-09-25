@@ -48,7 +48,7 @@ The Kubekit will install
 
 # Supported OS
 
-* CentOS release 7.3.1611 (**Already tested & verified**)
+* CentOS release 7.3.1611 __with minimal installation__ (**Already tested & verified**)
 * Ubuntu 16.04 LTS (Planned to support)
 
 # Requirements
