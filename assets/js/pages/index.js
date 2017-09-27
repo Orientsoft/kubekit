@@ -151,11 +151,12 @@ function getInstallLog(nodeId, nodeName) {
   console.log('Get node log:' + nodeId);
   $('#modalLog').modal();
   $('#modalLogTitle').text('安装日志 - ' + nodeName);
+  $('#logContent').html('<img id="loader" height="24" src="/assets/img/loader.svg" /> 正在加载安装日志...');
 
   axios.get("/node/log/" + nodeId)
     .then((response) => {
       if (response.data.success) {
-        $('#logContent').html(response.data.data.replace(/\n/g, "<br />"));
+        $('#logContent').html(response.data.data.replace(/\n/g, "<br />").replace(/\r/g, "<br />"));
         $("#logContent").scrollTop($("#logContent")[0].scrollHeight);
       } else {
         toastr.error(response.data.message);
