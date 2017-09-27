@@ -2,6 +2,7 @@ package utils
 
 import (
 	"fmt"
+	"io/ioutil"
 	"net"
 	"os"
 	"time"
@@ -10,6 +11,31 @@ import (
 
 	"golang.org/x/crypto/ssh"
 )
+
+func GetInstallLog(node *models.Node) string {
+	session, err := Connect("root", node.Password, node.IP, node.Port)
+
+	if err != nil {
+		fmt.Println("err:", err.Error())
+		fmt.Println("Cannot connect node:", node.IP)
+	}
+
+	defer session.Close()
+	pipe, err := session.StdoutPipe()
+
+	if err != nil {
+		return err.Error()
+	}
+
+	session.Run("cat /root/install.log")
+	buff, err := ioutil.ReadAll(pipe)
+
+	if err != nil {
+		return err.Error()
+	}
+
+	return string(buff)
+}
 
 func ExecuteCmd(node *models.Node, cmd string) {
 	session, err := Connect("root", node.Password, node.IP, node.Port)

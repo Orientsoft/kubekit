@@ -15,6 +15,20 @@ func (router *MainRouter) ListNodesHandler(c *gin.Context) {
 	c.JSON(http.StatusOK, resp)
 }
 
+func (router *MainRouter) GetInstallLog(c *gin.Context) {
+	nid := c.Param("id")
+	node := router.nodeMap[nid]
+
+	if node == nil {
+		resp := models.Response{Success: false, Message: "节点ID不存在"}
+		c.JSON(http.StatusOK, resp)
+	}
+
+	result := utils.GetInstallLog(node)
+	resp := models.Response{Success: true, Message: "ok", Data: result}
+	c.JSON(http.StatusOK, resp)
+}
+
 func (router *MainRouter) RefreshNodeHandler(c *gin.Context) {
 	nid := c.Param("id")
 	if nid == "" || len(nid) < 16 {

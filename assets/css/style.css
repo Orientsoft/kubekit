@@ -5501,3 +5501,8 @@ footer .footer-links a:hover {
 footer .footer-links a:last-child {
   border: none;
 }
+
+.console-log {
+  background-color: #073642;
+  color: #FFFCE0;
+}

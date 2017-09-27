@@ -57,6 +57,7 @@ func (self *MainRouter) Initialize(r *gin.Engine, filePort, toolkitPort string) 
 	self.router.POST("/node", self.CreateNodeHandler)
 	self.router.PUT("/node/remove/:id", self.RemoveNodeHandler)
 	self.router.GET("/node/refresh/:id", self.RefreshNodeHandler)
+	self.router.GET("/node/log/:id", self.GetInstallLog)
 
 	//Installation operations
 	self.router.POST("/install", self.InstallNodeHandler)

@@ -147,6 +147,25 @@ function parseStatus(status) {
   }
 }
 
+function getInstallLog(nodeId, nodeName) {
+  console.log('Get node log:' + nodeId);
+  $('#modalLog').modal();
+  $('#modalLogTitle').text('安装日志 - ' + nodeName);
+
+  axios.get("/node/log/" + nodeId)
+    .then((response) => {
+      if (response.data.success) {
+        $('#logContent').html(response.data.data.replace(/\n/g, "<br />"));
+        $("#logContent").scrollTop($("#logContent")[0].scrollHeight);
+      } else {
+        toastr.error(response.data.message);
+      }
+    })
+    .catch((error) => {
+      toastr.error('获取安装日志失败!');
+    });
+}
+
 function refreshNode(nodeId) {
   console.log('Refresh node:' + nodeId);
   axios.get("/node/refresh/" + nodeId)

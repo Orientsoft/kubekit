@@ -87,12 +87,29 @@
 		<div class="md-content">
 			<h3>移除节点</h3>
 			<div>
-				<button id="add-node" class="btn btn-default">添加</button>
+				<button id="add-node" class="btn btn-success">添加</button>
 				<button id="close-modal" class="btn btn-danger md-close">关闭</button>
 			</div>
 		</div>
 		<!-- End div .md-content -->
 	</div>
+	<!--  Modal content for the above example -->
+	<div id="modalLog" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			  <h4 class="modal-title" id="modalLogTitle"></h4>
+			</div>
+			<div id="logContent" class="modal-body console-log" style="overflow-y: scroll; height:600px; word-wrap: break-word;">
+				<img id="loader" height="24" src="/assets/img/loader.svg" /> 正在加载安装日志...
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+			</div>
+		  </div><!-- /.modal-content -->
+		</div><!-- /.modal-dialog -->
+	  </div><!-- /.modal -->
 	<!-- Begin page -->
 	<div id="wrapper">
 		<!-- Top Bar Start -->
@@ -210,6 +227,7 @@
 												<td>
 													<div class="btn-group btn-group-xs">
 														<a data-toggle="tooltip" title="刷新" class="btn btn-default" onclick="refreshNode('{{ .ID }}')"><i class="fa fa-refresh"></i></a>
+														<a data-toggle="tooltip" title="日志" class="btn btn-default" onclick="getInstallLog('{{ .ID }}', '{{ .Name }}')"><i class="fa fa-info-circle"></i></a>
 														<a data-toggle="tooltip" title="移除" class="btn btn-default" data-modal="md-remove-node" onclick="removeNode('{{ .ID }}')"><i class="fa fa-trash"></i></a>
 													</div>
 												</td>
