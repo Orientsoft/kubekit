@@ -60,7 +60,10 @@ The Kubekit will install
 
 1. Download latest release of kubekit from [GitHub](https://github.com/Orientsoft/kubekit/releases) it, extract it to ```./kubekit/```
 
-2. Download all the offline package from [百度网盘](https://pan.baidu.com/s/1kULhxzx) with password ```531v``` and with patience...
+2. Download all the offline packages:
+
+* Download it from our mirror server: [[Download]](http://kubekit.orientsoft.cn/package-2017-10-12.tar.gz) (__RECOMMENDED!__)
+* Or downlaod from [百度网盘](https://pan.baidu.com/s/1kULhxzx) with password ```531v``` and with patience...
 
 3. Extract all the offline packages to ```./kubekit/package``` and make *.sh executable:
 
