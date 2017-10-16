@@ -65,7 +65,7 @@ The Kubekit will install
 
   Then extract it to ```./kubekit/```
 
-2. Download all the offline package:
+2. Download offline package:
 
 * Download it from our mirror server: [[Download]](http://kubekit.orientsoft.cn/package-2017-10-12.tar.gz) (__RECOMMENDED!__)
 * Or downlaod it from [百度网盘](https://pan.baidu.com/s/1kULhxzx) with password ```531v``` and with patience...
