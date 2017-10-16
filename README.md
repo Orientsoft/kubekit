@@ -58,7 +58,12 @@ The Kubekit will install
 
 # Quick Start
 
-1. Download latest release of kubekit from [GitHub](https://github.com/Orientsoft/kubekit/releases) it, extract it to ```./kubekit/```
+1. Download latest release of kubekit:
+
+* Download it form our mirror server:[[Download]](http://kubekit.orientsoft.cn/) (__RECOMMENDED!__)
+* Or download it from [GitHub](https://github.com/Orientsoft/kubekit/releases) 
+
+Then extract it to ```./kubekit/```
 
 2. Download all the offline package:
 
