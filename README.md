@@ -63,7 +63,7 @@ The Kubekit will install
 * Download it form our mirror server:[[Download]](http://kubekit.orientsoft.cn/) (__RECOMMENDED!__)
 * Or download it from [GitHub](https://github.com/Orientsoft/kubekit/releases) 
 
-Then extract it to ```./kubekit/```
+  Then extract it to ```./kubekit/```
 
 2. Download all the offline package:
 
