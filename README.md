@@ -14,7 +14,7 @@ A Kubernetes deployment toolkit for offline environment.
 
 [1]: https://img.shields.io/badge/go-v1.8.3-green.svg
 [2]: https://golang.org
-[3]: https://img.shields.io/badge/kubernetes-v1.7.2-brightgreen.svg
+[3]: https://img.shields.io/badge/kubernetes-v1.8.1-brightgreen.svg
 [4]: https://kubernetes.io/
 [5]: https://img.shields.io/badge/release-v0.2-blue.svg
 [6]: https://github.com/Orientsoft/kubekit/releases
@@ -37,7 +37,7 @@ Kubekit is a deployment toolkit, it provides offline installation solution for k
 
 The Kubekit will install
 * Docker (1.12.6)
-* Kubernetes V1.7.2 and all its components
+* Kubernetes and all its components
 * Kubernetes dashboard, with default node port:**31234**
 
 # Highlights
@@ -49,7 +49,7 @@ The Kubekit will install
 # Supported OS
 
 * CentOS release 7.3.1611 __with minimal installation__ (**Already tested & verified**)
-* Ubuntu 16.04 LTS (Planned to support)
+* CentOS release 7.4.1708 __with minimal installation__ (**Already tested & verified**)
 
 # Requirements
 
