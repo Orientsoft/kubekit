@@ -68,10 +68,26 @@ The Kubekit will install
 
 2. Download offline package according to your OS version:
 
-| OS Version | K8S Version | Dashboard Version | Package Download |
-| ------ | ------ | ------ |
-| CentOS 7.3.1611 | V1.7.2 | V1.6.3 | [Download](http://kubekit.orientsoft.cn/package-1.7.2.tar.gz) |
-| CentOS 7.4.1708 | V1.8.1 | V1.7.1 | [Download](http://kubekit.orientsoft.cn/package-1.8.1.tar.gz) |
+<table>
+  <tr>
+            <th>OS Version</th>
+            <th>K8S Version</th>
+            <th>Dashboard Version</th>
+            <th>Package Download</th>
+  </tr>
+  <tr>
+            <th>CentOS 7.3.1611</th>
+            <th>V1.7.2</th>
+            <th>V1.6.3</th>
+   <th><a href="http://kubekit.orientsoft.cn/package-1.7.2.tar.gz" target="_blank">Download</a></th>
+  </tr>
+  <tr>
+            <th>CentOS 7.4.1708</th>
+            <th>V1.8.1</th>
+            <th>V1.7.1</th>
+            <th><a href="http://kubekit.orientsoft.cn/package-1.8.1.tar.gz" target="_blank">Download</a></th>
+  </tr>
+</table>
 
 3. Extract all the offline packages to ```./kubekit/package``` and make *.sh executable:
 
