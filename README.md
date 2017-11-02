@@ -89,7 +89,7 @@ The Kubekit will install
   </tr>
 </table>
 
-3. Extract all the offline packages to ```./kubekit/package``` and make *.sh executable:
+3. Extract all the files from offline package to ```./kubekit/package``` and make *.sh executable:
 
 ```bash
 cd package
