@@ -61,7 +61,7 @@ The Kubekit will install
 
 1. Download latest release of kubekit:
 
-* Download it form our mirror server:[[Download]](http://kubekit.orientsoft.cn/) (__RECOMMENDED!__)
+* Download it form our mirror server:[[Download]](http://kubekit.orientsoft.cn/kubekit-linux64-0.2.tar.gz) (__RECOMMENDED!__)
 * Or download it from [GitHub](https://github.com/Orientsoft/kubekit/releases) 
 
   Then extract it to ```./kubekit/```
