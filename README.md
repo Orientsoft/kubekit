@@ -153,9 +153,37 @@ Get more help via:
 ./kubekit server -h   
 ```
 
+# Uninstall
+
+To uninstall Kubernetes & kubekit, there are several steps:
+
+1. Reset the Kubernetes node:
+
+```bash
+kubeadm reset
+```
+
+2. Remove kubelet and related components:
+
+```bash
+yum -y remove kubelet kubeadm kubectl
+```
+
+3. Delete kubekit and the offline package:
+
+```bash
+rm -rf /path/to/kubekit
+```
+
 # Web UI Portal
 
 With Web UI Portal, you can manage all the Kubernetes worker nodes and initialize them, join them to Kubernetes cluster with "one-click".
+
+You can start Web UI Portal manually when kubekit program exited:
+
+```bash
+./kubekit server
+```
 
 ![](https://raw.githubusercontent.com/Orientsoft/kubekit/master/snapshots/1.png)
 
