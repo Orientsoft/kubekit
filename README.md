@@ -28,6 +28,7 @@ A Kubernetes deployment toolkit for offline environment.
 - [Quick Start](#quick-start)
 - [User Manual](#user-manual)
 - [CLI Commands](#cli-commands)
+- [Uninstall](#uninstall)
 - [Web UI Portal](#web-ui-portal)
 - [License](#license)
 
