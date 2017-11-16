@@ -106,7 +106,7 @@ kube::master_up()
     echo "KUBEKIT_OUTPUT (4/6) Start to initialize Kubernetes master..."
     # 这里一定要带上--pod-network-cidr参数，不然后面的flannel网络会出问题
     export KUBE_ETCD_IMAGE=gcr.io/google_containers/etcd-amd64:3.0.17
-    kubeadm init --pod-network-cidr=10.96.0.0/12
+    kubeadm init --kubernetes-version=v1.8.1 --pod-network-cidr=10.96.0.0/12
 
     # 使能master，可以被调度到
     # kubectl taint nodes --all dedicated-
