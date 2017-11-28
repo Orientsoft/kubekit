@@ -86,7 +86,7 @@ The Kubekit will install
             <th>CentOS 7.4.1708</th>
             <th>V1.8.1</th>
             <th>V1.7.1</th>
-            <th><a href="http://kubekit.orientsoft.cn/package-1.8.1.tar.gz" target="_blank">Download</a></th>
+            <th><a href="https://kubekit.orientsoft.cn/package-1.8.1.tar.gz" target="_blank">Download</a></th>
   </tr>
 </table>
 
