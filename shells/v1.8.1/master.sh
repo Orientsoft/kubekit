@@ -74,8 +74,10 @@ kube::install_bin()
         yum localinstall -y  /tmp/k8s/*.rpm
         rm -rf /tmp/k8s*
 
-        # Disable swap checking for K8S 1.8
-        sed -i '9iEnvironment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"' /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+        # Disable swap for K8S 1.8
+        swapoff -a
+        sed -i -e /swap/d /etc/fstab
+
         # Enable and start kubelet service
         systemctl enable kubelet.service && systemctl start kubelet.service && rm -rf /etc/kubernetes
     fi
@@ -83,7 +85,15 @@ kube::install_bin()
 
 kube::config_firewalld()
 {
-    systemctl disable firewalld && systemctl stop firewalld
+    set +e
+    which firewalld
+    j=$?
+    set -e
+
+    if [ $j -eq 0 ]; then
+    systemctl disable firewalld
+    systemctl stop firewalld
+    fi
     # iptables -A IN_public_allow -p tcp -m tcp --dport 9898 -m conntrack --ctstate NEW -j ACCEPT
     # iptables -A IN_public_allow -p tcp -m tcp --dport 6443 -m conntrack --ctstate NEW -j ACCEPT
     # iptables -A IN_public_allow -p tcp -m tcp --dport 10250 -m conntrack --ctstate NEW -j ACCEPT

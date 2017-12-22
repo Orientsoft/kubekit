@@ -37,13 +37,9 @@ kube::install_docker()
 
 kube::config_docker()
 {
+    setenforce 0
     sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 
-    #sysctl -w net.bridge.bridge-nf-call-iptables=1
-    #sysctl -w net.bridge.bridge-nf-call-ip6tables=1
-    # /etc/sysctl.conf 
-    # net.bridge.bridge-nf-call-ip6tables = 1
-    # net.bridge.bridge-nf-call-iptables = 1
     set +e
     which firewalld
     j=$?
@@ -53,7 +49,7 @@ kube::config_docker()
     systemctl disable firewalld
     systemctl stop firewalld
     fi
-    
+ 
     # Import orient CA cert.
     curl -L http://$HTTP_SERVER/certs/k8s-ca.crt > /etc/pki/ca-trust/source/anchors/k8s-ca.crt
     update-ca-trust
@@ -96,8 +92,10 @@ kube::install_bin()
         yum localinstall -y  /tmp/k8s/*.rpm
         rm -rf /tmp/k8s*
 
-        # Disable swap checking for K8S 1.8
-        sed -i '9iEnvironment="KUBELET_EXTRA_ARGS=--fail-swap-on=false"' /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
+        # Disable swap for K8S 1.8
+        swapoff -a
+        sed -i -e /swap/d /etc/fstab
+
         # Enable and start kubelet service
         systemctl enable kubelet.service && systemctl start kubelet.service && rm -rf /etc/kubernetes
     fi
@@ -105,7 +103,16 @@ kube::install_bin()
 
 kube::config_firewalld()
 {
-    systemctl disable firewalld && systemctl stop firewalld
+    set +e
+    which firewalld
+    j=$?
+    set -e
+
+    if [ $j -eq 0 ]; then
+    systemctl disable firewalld
+    systemctl stop firewalld
+    fi
+
     # iptables -A IN_public_allow -p tcp -m tcp --dport 9898 -m conntrack --ctstate NEW -j ACCEPT
     # iptables -A IN_public_allow -p tcp -m tcp --dport 6443 -m conntrack --ctstate NEW -j ACCEPT
     # iptables -A IN_public_allow -p tcp -m tcp --dport 10250 -m conntrack --ctstate NEW -j ACCEPT
@@ -117,7 +124,7 @@ kube::node_up()
     kube::install_docker
 
     curl http://$KIT_SERVER/install/progress/$ID/2
-    kube::load_images minion
+    kube::load_images
 
     curl http://$KIT_SERVER/install/progress/$ID/3
     kube::install_bin
