@@ -57,6 +57,7 @@ The Kubekit will install
 * Make sure you have root privileges for all the servers.
 * The firewalls are not managed, you'll need to implement your own rules the way you used to, in order to avoid any issue during deployment you should disable your firewall.
 * Make sure all the kubernetes nodes have different hostnames.
+* __Make sure the date and timezone of all the kubernetes nodes are the same.__
 
 # Quick Start
 
