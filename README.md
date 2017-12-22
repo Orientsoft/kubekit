@@ -75,18 +75,21 @@ The Kubekit will install
             <th>OS Version</th>
             <th>K8S Version</th>
             <th>Dashboard Version</th>
+            <th>Latest Release</th>
             <th>Package Download</th>
   </tr>
   <tr>
             <th>CentOS 7.3.1611</th>
             <th>V1.7.2</th>
             <th>V1.6.3</th>
+            <th>2017.12.22</th>
    <th><a href="https://kubekit.orientsoft.cn/package-1.7.2.tar.gz" target="_blank">Download</a></th>
   </tr>
   <tr>
             <th>CentOS 7.4.1708</th>
             <th>V1.8.1</th>
             <th>V1.7.1</th>
+           <th>2017.12.22</th>
             <th><a href="https://kubekit.orientsoft.cn/package-1.8.1.tar.gz" target="_blank">Download</a></th>
   </tr>
 </table>
@@ -128,7 +131,7 @@ USAGE:
    kubekit [global options] command [command options] [arguments...]
 
 VERSION:
-   0.1.0
+   0.2.0
 
 COMMANDS:
      init, i    Initialize current server with Docker engine & Kubernetes master.
