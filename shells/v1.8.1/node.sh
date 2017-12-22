@@ -28,8 +28,13 @@ kube::install_docker()
         tar zxf /tmp/docker.tar.gz -C /tmp
         yum localinstall -y /tmp/docker/*.rpm
         kube::config_docker
+        systemctl enable docker.service && systemctl start docker.service
+
+        # Modify them after docker is started
+        echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
+        echo 1 > /proc/sys/net/bridge/bridge-nf-call-ip6tables
     fi
-    systemctl enable docker.service && systemctl start docker.service
+
     echo docker has been installed!
     docker version
     rm -rf /tmp/docker /tmp/docker.tar.gz

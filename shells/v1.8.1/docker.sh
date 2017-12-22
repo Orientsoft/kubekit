@@ -42,9 +42,13 @@ kube::install_docker()
         yum localinstall -y /tmp/docker/*.rpm
         echo "KUBEKIT_OUTPUT (2/2) Start to config docker..."
         kube::config_docker
+        systemctl enable docker.service && systemctl start docker.service
+
+        # Modify them after docker is started
+        echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
+        echo 1 > /proc/sys/net/bridge/bridge-nf-call-ip6tables
     fi
 
-    systemctl enable docker.service && systemctl start docker.service
     echo docker has been installed!
     docker version
     rm -rf /tmp/docker /tmp/docker.tar.gz
@@ -54,12 +58,6 @@ kube::config_docker()
 {
     setenforce 0
     sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
-
-    #sysctl -w net.bridge.bridge-nf-call-iptables=1
-    #sysctl -w net.bridge.bridge-nf-call-ip6tables=1
-    # /etc/sysctl.conf 
-    # net.bridge.bridge-nf-call-ip6tables = 1
-    # net.bridge.bridge-nf-call-iptables = 1
 
     set +e
     which firewalld

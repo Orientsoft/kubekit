@@ -85,10 +85,15 @@ kube::install_bin()
 
 kube::config_firewalld()
 {
-    systemctl disable firewalld && systemctl stop firewalld
-    # iptables -A IN_public_allow -p tcp -m tcp --dport 9898 -m conntrack --ctstate NEW -j ACCEPT
-    # iptables -A IN_public_allow -p tcp -m tcp --dport 6443 -m conntrack --ctstate NEW -j ACCEPT
-    # iptables -A IN_public_allow -p tcp -m tcp --dport 10250 -m conntrack --ctstate NEW -j ACCEPT
+    set +e
+    which firewalld
+    j=$?
+    set -e
+
+    if [ $j -eq 0 ]; then
+    systemctl disable firewalld
+    systemctl stop firewalld
+    fi
 }
 
 kube::master_up()

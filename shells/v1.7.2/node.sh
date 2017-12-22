@@ -2,20 +2,7 @@
 
 # K8S offline install script.
 # Installed & verified by CentOS Linux release 7.3.1611 (Core)
-
-# Step 1
-# Start python simple http server first!!!
-# python -m SimpleHTTPServer
-# Serving HTTP on 0.0.0.0 port 8000 ...
-
-# Step 2
-# Run script with parameters
-
-# Server side:
-# curl -L http://192.168.0.104:8000/install.sh | bash -s master
-
-# Client side:
-# curl -L http://192.168.0.104:8000/install.sh |  bash -s 192.168.0.104 --token=6669b1.81f129bc847154f9 192.168.0.104:6443
+# Docker version 1.12.6
 
 set -x
 set -e
@@ -42,8 +29,13 @@ kube::install_docker()
         tar zxf /tmp/docker.tar.gz -C /tmp
         yum localinstall -y /tmp/docker/*.rpm
         kube::config_docker
+        systemctl enable docker.service && systemctl start docker.service
+
+        # Modify them after docker is started
+        echo 1 > /proc/sys/net/bridge/bridge-nf-call-iptables
+        echo 1 > /proc/sys/net/bridge/bridge-nf-call-ip6tables
     fi
-    systemctl enable docker.service && systemctl start docker.service
+
     echo docker has been installed!
     docker version
     rm -rf /tmp/docker /tmp/docker.tar.gz
@@ -51,13 +43,9 @@ kube::install_docker()
 
 kube::config_docker()
 {
+    setenforce 0
     sed -i -e 's/SELINUX=enforcing/SELINUX=disabled/g' /etc/sysconfig/selinux
 
-    #sysctl -w net.bridge.bridge-nf-call-iptables=1
-    #sysctl -w net.bridge.bridge-nf-call-ip6tables=1
-    # /etc/sysctl.conf 
-    # net.bridge.bridge-nf-call-ip6tables = 1
-    # net.bridge.bridge-nf-call-iptables = 1
     set +e
     which firewalld
     j=$?
@@ -121,7 +109,15 @@ kube::install_bin()
 
 kube::config_firewalld()
 {
-    systemctl disable firewalld && systemctl stop firewalld
+    set +e
+    which firewalld
+    j=$?
+    set -e
+
+    if [ $j -eq 0 ]; then
+    systemctl disable firewalld
+    systemctl stop firewalld
+    fi
     # iptables -A IN_public_allow -p tcp -m tcp --dport 9898 -m conntrack --ctstate NEW -j ACCEPT
     # iptables -A IN_public_allow -p tcp -m tcp --dport 6443 -m conntrack --ctstate NEW -j ACCEPT
     # iptables -A IN_public_allow -p tcp -m tcp --dport 10250 -m conntrack --ctstate NEW -j ACCEPT
