@@ -45,8 +45,8 @@ $(document).ready(function () {
             message: '节点名称长度在4-15个字符之间'
           },
           regexp: {
-            regexp: /^[a-zA-Z0-9_]+$/,
-            message: '节点名称应由字母，数字和下划线构成'
+            regexp: /^[a-zA-Z0-9\-_]+$/,
+            message: '节点名称应由字母，数字，横线或者下划线构成'
           }
         }
       },

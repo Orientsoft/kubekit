@@ -13,7 +13,7 @@ var (
     \|__| \|__|    \|_______|    \|_______|    \|_______|    \|__| \|__|    \|__|        \|__|
 
 
-KubeKit V%s ⓒ  OrientSoft 2017
+KubeKit V%s ⓒ  OrientSoft 2018
 
 `
 
