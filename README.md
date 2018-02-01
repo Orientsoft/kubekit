@@ -12,11 +12,11 @@ A Kubernetes deployment toolkit for offline environment.
 
 [![Go][1]][2] [![Kubernetes][3]][4] [![Build][7]][8] [![Release][5]][6]
 
-[1]: https://img.shields.io/badge/go-v1.8.3-green.svg
+[1]: https://img.shields.io/badge/go-v1.9.3-green.svg
 [2]: https://golang.org
-[3]: https://img.shields.io/badge/kubernetes-v1.8.1-brightgreen.svg
+[3]: https://img.shields.io/badge/kubernetes-v1.9.2-brightgreen.svg
 [4]: https://kubernetes.io/
-[5]: https://img.shields.io/badge/release-v0.2-blue.svg
+[5]: https://img.shields.io/badge/release-v0.2.1-blue.svg
 [6]: https://github.com/Orientsoft/kubekit/releases
 [7]: https://travis-ci.org/Orientsoft/kubekit.svg?branch=master
 [8]: https://travis-ci.org/Orientsoft/kubekit
@@ -63,7 +63,7 @@ The Kubekit will install
 
 1. Download latest release of kubekit:
 
-* Download it form our mirror server:[[Download]](https://kubekit.orientsoft.cn/kubekit-linux64-0.2.tar.gz) (__RECOMMENDED!__)
+* Download it form our mirror server:[[Download]](https://kubekit.orientsoft.cn/kubekit-linux64-0.2.1.tar.gz) (__RECOMMENDED!__)
 * Or download it from [GitHub](https://github.com/Orientsoft/kubekit/releases) 
 
   Then extract it to ```./kubekit/```
@@ -91,6 +91,13 @@ The Kubekit will install
             <th>V1.7.1</th>
            <th>2017.12.22</th>
             <th><a href="https://kubekit.orientsoft.cn/package-1.8.1.tar.gz" target="_blank">Download</a></th>
+  </tr>
+  <tr>
+            <th>CentOS 7.4.1708</th>
+            <th>V1.9.2</th>
+            <th>V1.8.2</th>
+           <th>2018.2.1</th>
+            <th><a href="https://kubekit.orientsoft.cn/package-1.9.2.tar.gz" target="_blank">Download</a></th>
   </tr>
 </table>
 
@@ -131,7 +138,7 @@ USAGE:
    kubekit [global options] command [command options] [arguments...]
 
 VERSION:
-   0.2.0
+   0.2.1
 
 COMMANDS:
      init, i    Initialize current server with Docker engine & Kubernetes master.
