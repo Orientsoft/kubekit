@@ -17,6 +17,7 @@ release:
 		mv kubekit ./kubekit-release
 		cp -r ./assets ./kubekit-release
 		cp -r ./templates ./kubekit-release
+		cp ./server.sh ./kubekit-release
 		cp README.md ./kubekit-release
 		cp LICENSE ./kubekit-release
 		tar czvf ${BINARY}-linux64-${VERSION}.tar.gz ./kubekit-release
