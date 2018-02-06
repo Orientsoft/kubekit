@@ -1,0 +1,20 @@
+zh-CN:
+  menu:
+    deploy: "节点部署"
+    dashboard: "K8S面版"
+  button:
+    add: "添加节点"
+    deploy: "一键部署"
+    refresh: "刷新"
+    log: "安装日志"
+    remove: "删除"
+  column:
+    select: "节点选择"
+    name: "节点名称"
+    address: "内网IP"
+    port: "SSH端口"
+    password: "登录密码"
+    created: "添加时间"
+    status: "节点状态"
+    message: "节点信息"
+    operation: "节点操作"

@@ -35,9 +35,6 @@ func DetectLocale() gin.HandlerFunc {
 		} else if strings.Contains(lang, "zh") {
 			Locale = "zh-CN"
 		}
-
-		fmt.Println("Locale:", Locale)
-
 		// before request
 		c.Next()
 	}

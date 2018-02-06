@@ -3,7 +3,7 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Kubekit - V0.1.0</title>
+	<title>Kubekit - V0.3</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<meta name="apple-mobile-web-app-capable" content="yes" />
 	<meta name="description" content="">
@@ -53,42 +53,32 @@
 <body class="fixed-left">
 	<div class="md-modal md-3d-flip-horizontal" id="md-add-node">
 		<div class="md-content">
-			<h3>添加节点</h3>
+			<h3>{{ t "nodeform.title" }}</h3>
 			<div>
 				<form role="form" id="nodeForm">
 					<div class="form-group">
-						<label for="exampleInputEmail1">节点名称</label>
+						<label for="exampleInputEmail1">{{ t "nodeform.name" }}</label>
 						<input type="text" class="form-control" id="name" name="name" placeholder="name">
 					</div>
 					<div class="form-group">
-						<label for="exampleInputPassword1">内网IP</label>
+						<label for="exampleInputPassword1">{{ t "nodeform.address" }}</label>
 						<input type="text" class="form-control" id="ip" name="ip" placeholder="example: 10.0.0.1">
 					</div>
 					<div class="form-group">
-						<label for="exampleInputPassword1">SSH端口</label>
+						<label for="exampleInputPassword1">{{ t "nodeform.port" }}</label>
 						<input type="text" class="form-control" id="port" name="port" placeholder="22">
 					</div>
 					<div class="form-group">
-						<label for="exampleInputPassword1">登录密码</label>
-						<input type="text" class="form-control" id="password" name="password" placeholder="SSH登录密码">
+						<label for="exampleInputPassword1">{{ t "nodeform.password" }}</label>
+						<input type="text" class="form-control" id="password" name="password" placeholder="SSH password">
 					</div>
 					<div class="form-group">
-						<label for="exampleInputPassword1">确认登录密码</label>
-						<input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="再次确认SSH登录密码">
+						<label for="exampleInputPassword1">{{ t "nodeform.confirm" }}</label>
+						<input type="text" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="SSH password">
 					</div>
-					<button id="add-node" class="btn btn-default">添加</button>
-					<button id="close-modal" class="btn btn-danger md-close">关闭</button>
+					<button id="add-node" class="btn btn-default">{{ t "nodeform.add" }}</button>
+					<button id="close-modal" class="btn btn-danger md-close">{{ t "nodeform.close" }}</button>
 				</form>
-			</div>
-		</div>
-		<!-- End div .md-content -->
-	</div>
-	<div class="md-modal md-fade-in-scale-up" id="md-remove-node">
-		<div class="md-content">
-			<h3>移除节点</h3>
-			<div>
-				<button id="add-node" class="btn btn-success">添加</button>
-				<button id="close-modal" class="btn btn-danger md-close">关闭</button>
 			</div>
 		</div>
 		<!-- End div .md-content -->
@@ -163,7 +153,7 @@
 			<div class="content">
 				<!-- Page Heading Start -->
 				<div class="page-heading">
-					<h1><i class='fa fa-server'></i> 节点部署</h1>
+					<h1><i class='fa fa-server'></i> {{ t "menu.deploy" }}</h1>
 				</div>
 
 				<div class="row">
@@ -180,8 +170,8 @@
 									<div class="row">
 										<div class="col-md-12">
 											<div class="toolbar-btn-action">
-												<a class="btn btn-success md-trigger" data-modal="md-add-node"><i class="fa fa-plus-circle"></i> 添加节点</a>
-												<a id="btn-deploy" class="btn btn-warning" onclick="batchInstall()"><i class="fa fa-paper-plane"></i> 一键部署</a>
+												<a class="btn btn-success md-trigger" data-modal="md-add-node"><i class="fa fa-plus-circle"></i> {{ t "button.add" }}</a>
+												<a id="btn-deploy" class="btn btn-warning" onclick="batchInstall()"><i class="fa fa-paper-plane"></i> {{ t "button.deploy" }}</a>
 											</div>
 										</div>
 									</div>
@@ -191,15 +181,15 @@
 									<table data-sortable class="table table-hover table-striped">
 										<thead>
 											<tr>
-												<th>节点选择</th>
-												<th>节点名称</th>
-												<th>内网IP</th>
-												<th>SSH端口</th>
-												<th>登录密码</th>
-												<th>添加时间</th>
-												<th>节点状态</th>
-												<th data-sortable="false">节点信息</th>
-												<th data-sortable="false">节点操作</th>
+												<th> {{ t "column.select" }}</th>
+												<th> {{ t "column.name" }}</th>
+												<th> {{ t "column.address" }}</th>
+												<th> {{ t "column.port" }}</th>
+												<th> {{ t "column.password" }}</th>
+												<th> {{ t "column.created" }}</th>
+												<th> {{ t "column.status" }}</th>
+												<th data-sortable="false"> {{ t "column.message" }}</th>
+												<th data-sortable="false"> {{ t "column.operation" }}</th>
 											</tr>
 										</thead>
 
@@ -226,9 +216,9 @@
 												<td id="comment-{{ .ID }}">{{ if eq .Status 1}}<img id="loader" height="24" src="/assets/img/loader.svg" />{{ end }} {{ .Comment }}</td>
 												<td>
 													<div class="btn-group btn-group-xs">
-														<a data-toggle="tooltip" title="刷新" class="btn btn-default" onclick="refreshNode('{{ .ID }}')"><i class="fa fa-refresh"></i></a>
-														<a data-toggle="tooltip" title="日志" class="btn btn-default" onclick="getInstallLog('{{ .ID }}', '{{ .Name }}')"><i class="fa fa-info-circle"></i></a>
-														<a data-toggle="tooltip" title="移除" class="btn btn-default" data-modal="md-remove-node" onclick="removeNode('{{ .ID }}')"><i class="fa fa-trash"></i></a>
+														<a data-toggle="tooltip" title="{{ t "button.add" }}" class="btn btn-default" onclick="refreshNode('{{ .ID }}')"><i class="fa fa-refresh"></i></a>
+														<a data-toggle="tooltip" title="{{ t "button.refresh" }}" class="btn btn-default" onclick="getInstallLog('{{ .ID }}', '{{ .Name }}')"><i class="fa fa-info-circle"></i></a>
+														<a data-toggle="tooltip" title="{{ t "button.remove" }}" class="btn btn-default" data-modal="md-remove-node" onclick="removeNode('{{ .ID }}')"><i class="fa fa-trash"></i></a>
 													</div>
 												</td>
 											</tr>
@@ -254,7 +244,7 @@
 				</div>
 				<!-- Footer Start -->
 				<footer>
-					OrientSoft &copy; 2017
+					OrientSoft &copy; 2017 - 2018
 					<!-- <div class="footer-links pull-right">
 						<a href="#">About</a><a href="#">Support</a>
 					</div> -->
