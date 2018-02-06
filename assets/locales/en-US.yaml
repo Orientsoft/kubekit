@@ -1,0 +1,12 @@
+en-US:
+  menu:
+    deploy: "Node Deployment"
+    dashboard: "Kubernetes Dashboard"
+  button:
+    add: "Add Node"
+    deploy: "Start Deploy"
+    refresh: "Refresh"
+    log: "Logs"
+    remove: "Remove"
+  column:
+    select: "Select Node"
