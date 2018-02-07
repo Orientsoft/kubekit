@@ -44,3 +44,22 @@ zh-CN:
     close: "关闭"
     title: "安装日志"
     failed: "获取安装日志失败!"
+  status:
+    ready: "待部署"
+    deploying: "部署中"
+    deployed: "已部署"
+    disconnect: "无法连接"
+    failed: "部署失败"
+  refresh:
+    success: "成功更新节点!"
+    failed: "更新节点失败!"
+  remove:
+    title: "移除节点"
+    confirm: "是否确认移除节点"
+    success: "成功移除节点!"
+    failed: "移除节点失败!"
+    ok: "确定移除"
+    cancel: "取消"
+  batch:
+    success: "成功创建批量部署任务!"
+    failed: "请求发生错误，无法创建批量部署任务！"

@@ -130,19 +130,19 @@ $(document).ready(function () {
 function parseStatus(status) {
   switch (status) {
     case 0:
-      return '<span class="label label-default">待部署</span>'
+      return '<span class="label label-default">' + status_ready +'</span>'
       break;
     case 1:
-      return '<span class="label label-info">部署中</span>'
+      return '<span class="label label-info">' + status_deploying + '</span>'
       break;
     case 2:
-      return '<span class="label label-success">已部署</span>'
+      return '<span class="label label-success">' + status_deployed + '</span>'
       break;
     case 3:
-      return '<span class="label label-warning">无法连接</span>'
+      return '<span class="label label-warning">' + status_disconnect + '</span>'
       break;
     case 4:
-      return '<span class="label label-error">部署失败</span>'
+      return '<span class="label label-error">' + status_failed + '</span>'
       break;
   }
 }
@@ -172,7 +172,7 @@ function refreshNode(nodeId) {
   axios.get("/node/refresh/" + nodeId)
     .then((response) => {
       if (response.data.success) {
-        toastr.success('成功更新节点!');
+        toastr.success(refresh_success);
         console.log(response.data.data);
         $('#status-' + response.data.data.id).html(parseStatus(response.data.data.status));
 
@@ -182,11 +182,11 @@ function refreshNode(nodeId) {
           $('#comment-' + response.data.data.id).text(response.data.data.comment);
         }
       } else {
-        toastr.error('更新节点失败!');
+        toastr.error(refresh_failed);
       }
     })
     .catch((error) => {
-      toastr.error('更新节点失败!');
+      toastr.error(refresh_failed);
     });
 }
 
@@ -195,25 +195,25 @@ function removeNode(nodeId) {
   console.log('Remove node:' + nodeId);
   nodeName = $('#name-' + nodeId).text();
 
-  alertify.confirm('移除节点', '是否确认移除节点 <strong>' + nodeName + '</strong> ?', function () {
+  alertify.confirm(remove_title, remove_confirm +' <strong>' + nodeName + '</strong> ?', function () {
     axios.put("/node/remove/" + nodeId)
       .then((response) => {
         if (response.data.success) {
-          toastr.success('成功移除节点!');
+          toastr.success(remove_success);
           //Refresh page
           setTimeout(function () {
             location.reload();
           }, 2000);
         } else {
-          toastr.error('移除节点失败!');
+          toastr.error(remove_failed);
         }
       })
       .catch((error) => {
-        toastr.error('移除节点失败!');
+        toastr.error(remove_failed);
       });
   }, function () {}).set('labels', {
-    ok: '确定删除',
-    cancel: '取消'
+    ok: remove_ok,
+    cancel: remove_cancel
   });;
 }
 
@@ -223,19 +223,19 @@ function batchInstall() {
     })
     .then(function (response) {
       if (response.data.success) {
-        toastr.success('成功创建批量部署任务!');
+        toastr.success(batch_success);
         $("#close-modal").trigger("click");
         //Refresh page
         setTimeout(function () {
           location.reload();
         }, 2000);
       } else {
-        toastr.error('请求发生错误, 无法创建批量部署任务! <br/>' + response.data.message);
+        toastr.error(batch_failed +'<br/>' + response.data.message);
       }
     })
     .catch(function (error) {
       console.log(error);
-      toastr.error('请求发生错误, 无法创建批量部署任务!');
+      toastr.error(batch_failed);
     });
 }
 

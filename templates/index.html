@@ -206,11 +206,11 @@
 												<td>{{ .CreatedAt }}</td>
 												<td id="status-{{ .ID}}">
 													{{ if eq .Status 0 }}
-													<span class="label label-default">待部署</span> {{ else if eq .Status 1}}
-													<span class="label label-info">部署中</span> {{ else if eq .Status 2}}
-													<span class="label label-success">已部署</span> {{ else if eq .Status 3}}
-													<span class="label label-warning">无法连接</span> {{ else if eq .Status 4}}
-													<span class="label label-error">部署失败</span> {{ end }}
+													<span class="label label-default">{{ t "status.ready" }}</span> {{ else if eq .Status 1}}
+													<span class="label label-info">{{ t "status.deploying" }}</span> {{ else if eq .Status 2}}
+													<span class="label label-success">{{ t "status.deployed" }}</span> {{ else if eq .Status 3}}
+													<span class="label label-warning">{{ t "status.disconnect" }}</span> {{ else if eq .Status 4}}
+													<span class="label label-error">{{ t "status.failed" }}</span> {{ end }}
 												</td>
 												<td id="comment-{{ .ID }}">{{ if eq .Status 1}}<img id="loader" height="24" src="/assets/img/loader.svg" />{{ end }} {{ .Comment }}</td>
 												<td>

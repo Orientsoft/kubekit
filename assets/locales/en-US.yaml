@@ -44,3 +44,22 @@ en-US:
     close: "Close"
     title: "Installation Log"
     failed: "Failed to get installation log!"
+  status:
+    ready: "Ready to deploy"
+    deploying: "Deploying"
+    deployed: "Deployed"
+    disconnect: "Disconnected"
+    failed: "Failed"
+  refresh:
+    success: "Node refreshed!"
+    failed: "Failed to refresh node!"
+  remove:
+    title: "Remove Node"
+    confirm: "Are you sure to remove node"
+    success: "Node removed!"
+    failed: "Failed to remove node!"
+    ok: "Remove"
+    cancel: "Cancel"
+  batch:
+    success: "Deploy task created!"
+    failed: "Failed to create deploy task！"
