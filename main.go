@@ -16,7 +16,7 @@ import (
 const (
 	FilePort = iota
 	ToolkitPort
-	VERSION = "0.2"
+	VERSION = "0.3"
 )
 
 func initialize() {
