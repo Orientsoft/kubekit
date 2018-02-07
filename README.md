@@ -199,5 +199,9 @@ You can start Web UI Portal manually when kubekit program exited:
 
 ![](https://raw.githubusercontent.com/Orientsoft/kubekit/master/snapshots/1.png)
 
+Language is auto-detected by browser's language settings.
+
+![](https://raw.githubusercontent.com/Orientsoft/kubekit/master/snapshots/6.png)
+
 # License
 [MIT License](https://github.com/Orientsoft/kubekit/blob/master/LICENSE)
