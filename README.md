@@ -203,6 +203,10 @@ You can start Web UI Portal manually when kubekit program exited:
 
 Language is auto-detected by browser's language settings.
 
+Supported languages:  
+* Chinese
+* English
+
 ![](https://raw.githubusercontent.com/Orientsoft/kubekit/master/snapshots/6.png)
 
 # License
