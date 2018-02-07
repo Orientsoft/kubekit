@@ -138,7 +138,7 @@ USAGE:
    kubekit [global options] command [command options] [arguments...]
 
 VERSION:
-   0.2.1
+   0.3
 
 COMMANDS:
      init, i    Initialize current server with Docker engine & Kubernetes master.
