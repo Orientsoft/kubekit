@@ -16,7 +16,7 @@ A Kubernetes deployment toolkit for offline environment.
 [2]: https://golang.org
 [3]: https://img.shields.io/badge/kubernetes-v1.9.2-brightgreen.svg
 [4]: https://kubernetes.io/
-[5]: https://img.shields.io/badge/release-v0.2.1-blue.svg
+[5]: https://img.shields.io/badge/release-v0.3-blue.svg
 [6]: https://github.com/Orientsoft/kubekit/releases
 [7]: https://travis-ci.org/Orientsoft/kubekit.svg?branch=master
 [8]: https://travis-ci.org/Orientsoft/kubekit
@@ -63,7 +63,7 @@ The Kubekit will install
 
 1. Download latest release of kubekit:
 
-* Download it form our mirror server:[[Download]](https://kubekit.orientsoft.cn/kubekit-linux64-0.2.1.tar.gz) (__RECOMMENDED!__)
+* Download it form our mirror server:[[Download]](https://kubekit.orientsoft.cn/kubekit-linux64-0.3.tar.gz) (__RECOMMENDED!__)
 * Or download it from [GitHub](https://github.com/Orientsoft/kubekit/releases) 
 
   Then extract it to ```./kubekit/```
