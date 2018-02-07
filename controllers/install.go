@@ -62,15 +62,15 @@ func (router *MainRouter) NodeProgressHandler(c *gin.Context) {
 
 	switch step {
 	case "1":
-		comment = "(1/5) Installing Docker Engine"
+		comment = "(1/5) " + Translate("install.step1")
 	case "2":
-		comment = "(2/5) Loading K8S images"
+		comment = "(2/5) " + Translate("install.step2")
 	case "3":
-		comment = "(3/5) Installing K8S components"
+		comment = "(3/5) " + Translate("install.step3")
 	case "4":
-		comment = "(4/5) Joining K8S cluster"
+		comment = "(4/5) " + Translate("install.step4")
 	case "5":
-		comment = "Done"
+		comment = Translate("install.step5")
 		status = 2
 	}
 

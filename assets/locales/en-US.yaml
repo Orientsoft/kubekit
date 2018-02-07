@@ -63,3 +63,9 @@ en-US:
   batch:
     success: "Deploy task created!"
     failed: "Failed to create deploy task！"
+  install:
+    step1: "Installing Docker Engine"
+    step2: "Loading K8S images"
+    step3: "Installing K8S components"
+    step4: "Joining K8S cluster"
+    step5: "Done"

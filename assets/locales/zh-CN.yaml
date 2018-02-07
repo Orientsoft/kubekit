@@ -63,3 +63,9 @@ zh-CN:
   batch:
     success: "成功创建批量部署任务!"
     failed: "请求发生错误，无法创建批量部署任务！"
+  install:
+    step1: "开始安装Docker Engine"
+    step2: "开始载入K8S镜像"
+    step3: "开始安装K8S组件"
+    step4: "加入节点到集群中"
+    step5: "部署完成"
