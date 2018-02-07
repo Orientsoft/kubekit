@@ -92,10 +92,10 @@
 			  <h4 class="modal-title" id="modalLogTitle"></h4>
 			</div>
 			<div id="logContent" class="modal-body console-log" style="overflow-y: scroll; height:600px; word-wrap: break-word;">
-				<img id="loader" height="24" src="/assets/img/loader.svg" /> 正在加载安装日志...
+				<img id="loader" height="24" src="/assets/img/loader.svg" /> {{ t "logform.origin" }}
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-danger" data-dismiss="modal">关闭</button>
+				<button type="button" class="btn btn-danger" data-dismiss="modal">{{ t "logform.close" }}</button>
 			</div>
 		  </div><!-- /.modal-content -->
 		</div><!-- /.modal-dialog -->
@@ -137,7 +137,6 @@
 					<ul>
 						<li><a href='#' class="active"><i class='icon-home-3'></i><span>{{ t "menu.deploy" }}</span></a></li>
 						<li><a href='#' class="" onclick="toggleDashboard()"><i class="fa fa-tachometer" aria-hidden="true"></i><span>{{ t "menu.dashboard" }}</span></a></li>
-						<!-- <li><a href='#' class="" onclick="toggleDashboard()"><i class='fa fa-cube'></i><span>应用部署</span></a></li> -->
 					</ul>
 					<div class="clearfix"></div>
 				</div>
@@ -226,18 +225,6 @@
 										</tbody>
 									</table>
 								</div>
-
-								<!-- <div class="data-table-toolbar">
-									<ul class="pagination">
-									  <li class="disabled"><a href="#">&laquo;</a></li>
-									  <li class="active"><a href="#">1</a></li>
-									  <li><a href="#">2</a></li>
-									  <li><a href="#">3</a></li>
-									  <li><a href="#">4</a></li>
-									  <li><a href="#">5</a></li>
-									  <li><a href="#">&raquo;</a></li>
-									</ul>
-								</div> -->
 							</div>
 						</div>
 					</div>
@@ -245,9 +232,6 @@
 				<!-- Footer Start -->
 				<footer>
 					OrientSoft &copy; 2017 - 2018
-					<!-- <div class="footer-links pull-right">
-						<a href="#">About</a><a href="#">Support</a>
-					</div> -->
 				</footer>
 				<!-- Footer End -->
 			</div>
@@ -287,5 +271,7 @@
 	<script src="assets/js/init.js"></script>
 	<script src="assets/js/pages/index.js"></script>
 </body>
+
+{{ template "locale.html" . }}
 
 </html>

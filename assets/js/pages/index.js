@@ -34,58 +34,58 @@ $(document).ready(function () {
     live: 'disabled',
     fields: {
       name: {
-        message: '节点名称不合法',
+        message: nodeform_invalid_name,
         validators: {
           notEmpty: {
-            message: '节点名称必填'
+            message: nodeform_empty_name
           },
           stringLength: {
             min: 4,
             max: 15,
-            message: '节点名称长度在4-15个字符之间'
+            message: nodeform_name_length
           },
           regexp: {
             regexp: /^[a-zA-Z0-9\-_]+$/,
-            message: '节点名称应由字母，数字，横线或者下划线构成'
+            message: nodeform_name_regex
           }
         }
       },
       ip: {
         validators: {
           notEmpty: {
-            message: '内网IP地址不能为空'
+            message: nodeform_empty_ip
           },
           regexp: {
             regexp: /^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/,
-            message: '请输入正确的内网IPV4地址'
+            message: nodeform_invalid_ip
           }
         }
       },
       password: {
         validators: {
           notEmpty: {
-            message: 'SSH密码不能为空'
+            message: nodeform_empty_password
           }
         }
       },
       confirmPassword: {
         validators: {
           notEmpty: {
-            message: 'SSH密码不能为空'
+            message: nodeform_empty_password
           },
           identical: {
             field: 'password',
-            message: '密码两次输入不一致'
+            message: nodeform_password_mismatch
           }
         }
       },
       port: {
         validators: {
           notEmpty: {
-            message: 'SSH端口号必填'
+            message: nodeform_empty_port
           },
           digits: {
-            message: '端口号只能为数字'
+            message: nodeform_invalid_port
           }
         }
       }
@@ -109,19 +109,19 @@ $(document).ready(function () {
         })
         .then(function (response) {
           if (response.data.success) {
-            toastr.success('成功添加节点!');
+            toastr.success(nodeform_success);
             $("#close-modal").trigger("click");
             //Refresh page
             setTimeout(function () {
               location.reload();
             }, 2000);
           } else {
-            toastr.error('请求发生错误, 无法添加节点! <br/>' + response.data.message);
+            toastr.error(nodeform_failed + '<br/>' + response.data.message);
           }
         })
         .catch(function (error) {
           console.log(error);
-          toastr.error('请求发生错误, 无法添加节点!');
+          toastr.error(nodeform_failed);
         });
     }
   });
@@ -150,8 +150,8 @@ function parseStatus(status) {
 function getInstallLog(nodeId, nodeName) {
   console.log('Get node log:' + nodeId);
   $('#modalLog').modal();
-  $('#modalLogTitle').text('安装日志 - ' + nodeName);
-  $('#logContent').html('<img id="loader" height="24" src="/assets/img/loader.svg" /> 正在加载安装日志...');
+  $('#modalLogTitle').text( logform_title + ' - ' + nodeName);
+  $('#logContent').html('<img id="loader" height="24" src="/assets/img/loader.svg" /> ' + logform_origin);
 
   axios.get("/node/log/" + nodeId)
     .then((response) => {
@@ -163,7 +163,7 @@ function getInstallLog(nodeId, nodeName) {
       }
     })
     .catch((error) => {
-      toastr.error('获取安装日志失败!');
+      toastr.error(logform_failed);
     });
 }
 
